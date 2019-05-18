@@ -642,7 +642,6 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "app.model.MenuDataViewModel": [],
   "app.store.MenuDataViewStore": [],
-  "app.view.CheckSampleView": [],
   "app.view.FuCaiOutStoreView": [],
   "app.view.FuCaiTurnStoreView": [],
   "app.view.LoginView": [],
@@ -1370,9 +1369,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.WindowsPhone": [],
   "app.model.MenuDataViewModel": [],
   "app.store.MenuDataViewStore": [],
-  "app.view.CheckSampleView": [
-    "widget.checkSampleView"
-  ],
   "app.view.FuCaiOutStoreView": [
     "widget.fuCaiOutStoreView"
   ],
