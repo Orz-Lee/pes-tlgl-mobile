@@ -594,6 +594,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.util.SizeMonitor": [],
   "Ext.util.Sortable": [],
   "Ext.util.Sorter": [],
+  "Ext.util.StoreHolder": [],
   "Ext.util.TapRepeater": [],
   "Ext.util.Translatable": [],
   "Ext.util.TranslatableGroup": [],
@@ -640,7 +641,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
+  "app.model.CostCenterCodeModel": [],
   "app.model.MenuDataViewModel": [],
+  "app.store.CostDataViewStore": [],
   "app.store.MenuDataViewStore": [],
   "app.view.FuCaiOutStoreView": [],
   "app.view.FuCaiTurnStoreView": [],
@@ -1317,6 +1320,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.util.SizeMonitor": [],
   "Ext.util.Sortable": [],
   "Ext.util.Sorter": [],
+  "Ext.util.StoreHolder": [],
   "Ext.util.TapRepeater": [],
   "Ext.util.Translatable": [],
   "Ext.util.TranslatableGroup": [],
@@ -1367,7 +1371,9 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
+  "app.model.CostCenterCodeModel": [],
   "app.model.MenuDataViewModel": [],
+  "app.store.CostDataViewStore": [],
   "app.store.MenuDataViewStore": [],
   "app.view.FuCaiOutStoreView": [
     "widget.fuCaiOutStoreView"

@@ -20,25 +20,25 @@ Ext.application({
         'MenuDataViewModel'
     ],
     stores: [
-        'MenuDataViewStore'
+        'MenuDataViewStore',
+        'CostDataViewStore'
     ],
     views: [
         'Main',
         'MenuView',
         'MenuDataItem'
-
     ],
 
     launch: function() {
 
-        var url = '10.188.26.37';
-        var port = '9001';
-        var serverName = 'jtlg-app';
+        var url = '10.99.243.117';
+        var port = '8080';
+        var serverName = 'pes-tlgl-app';
         rootUrl = 'http://'+url+':'+port+'/'+serverName;
-        console.log('rootUrl = '+rootUrl);
+        //rootUrl = 'http://192.168.1.54:9001';
         root = Ext.create('app.view.RootNavigationView');
         root.push(Ext.create('app.view.LoginView'));
-        //root.push(Ext.create('app.view.XinDingTurnStoreView'));
         Ext.Viewport.add(root);
-    },
+
+    }
 });

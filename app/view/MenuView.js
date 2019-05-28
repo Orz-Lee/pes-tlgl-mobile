@@ -51,7 +51,7 @@ Ext.define('app.view.MenuView', {
                                     'base_font_family',
                                     'title_font_size'
                                 ],
-                                html: '首页',
+                                html: '首页'
                             }
                         ]
                     },
@@ -125,6 +125,21 @@ Ext.define('app.view.MenuView', {
     },
 
     onMybutton8Tap: function(button, e, eOpts) {
+        Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: '请稍候......'
+        });
+        Ext.Ajax.request({
+            url:rootUrl + '/ac/login/logout.action',
+            success: function(conn, response, options, eOpts) {
+                Ext.Viewport.setMasked(false);
+            },
+            failure: function(conn, response, options, eOpts) {
+                Ext.Viewport.setMasked(false);
+                Ext.Msg.alert('错误信息','网络中断或无连接.');
+            }
+        });
+
         var root = Ext.getCmp('rootView');
         root.pop();
     },
@@ -134,12 +149,11 @@ Ext.define('app.view.MenuView', {
             xtype: 'loadmask',
             message: '请稍候......'
         });
-        // var label = record.get('label');
         var label = record.get('RES_ID');
         var root = dataview.up('#root');
         var root = Ext.getCmp('rootView');
         var slide = Ext.create("Ext.fx.layout.card.Slide",{direction:"left"});
-        console.log('label = '+label);
+        //console.log('label = '+label);
         var targetView;
 
         setTimeout(function(){
@@ -159,7 +173,6 @@ Ext.define('app.view.MenuView', {
                 targetView = Ext.create('app.view.XinDingTurnStoreView');
                 root.push(targetView);
             }
-
             Ext.Viewport.setMasked(false);
         },500);
 

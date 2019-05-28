@@ -149,20 +149,44 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'a',
+                                        itemId: 'enterpriseCode',
                                         inputCls: 'white_select_input'
                                     }
                                 ]
+                            }
+                        ]
+                    },
+                    {
+                        xtype: 'container',
+                        height: 36,
+                        margin: '2 0',
+                        width: '100%',
+                        layout: {
+                            type: 'hbox',
+                            align: 'center'
+                        },
+                        items: [
+                            {
+                                xtype: 'container',
+                                cls: 'blue_font',
+                                html: '产品类别代码',
+                                width: 120
                             },
                             {
-                                xtype: 'button',
-                                cls: [
-                                    'menu_view_bg',
-                                    'base_font_family'
-                                ],
-                                hidden: true,
-                                itemId: 'mybutton4',
-                                text: '扫码'
+                                xtype: 'container',
+                                flex: 1,
+                                cls: 'margin_content',
+                                height: '100%',
+                                items: [
+                                    {
+                                        xtype: 'textfield',
+                                        cls: 'small_textfield_cls',
+                                        itemId: 'productTypeCode',
+                                        clearIcon: false,
+                                        inputCls: 'color_select_input',
+                                        readOnly: true
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -191,7 +215,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'b',
+                                        itemId: 'productLevleCode',
                                         clearIcon: false,
                                         inputCls: 'color_select_input',
                                         readOnly: true
@@ -225,7 +249,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'c',
+                                        itemId: 'produceDateCode',
                                         clearIcon: false,
                                         inputCls: 'color_select_input',
                                         readOnly: true
@@ -258,7 +282,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'd',
+                                        itemId: 'productUniqueCode',
                                         clearIcon: false,
                                         inputCls: 'color_select_input',
                                         readOnly: true
@@ -292,56 +316,12 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'e',
+                                        itemId: 'netWeightCode',
                                         clearIcon: false,
                                         inputCls: 'color_select_input',
                                         readOnly: true
                                     }
                                 ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 50,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '锌铝合金公司',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                //height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'f',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
-                                    }
-                                ]
-                            },
-                            {
-                                xtype: 'button',
-                                cls: [
-                                    'menu_view_bg',
-                                    'base_font_family'
-                                ],
-                                //hidden: true,
-                                itemId: 'mybutton',
-                                text: '识别'
                             }
                         ]
                     },
@@ -370,7 +350,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'g',
+                                        itemId: 'matNr',
                                         clearIcon: false,
                                         inputCls: 'color_select_input',
                                         readOnly: true
@@ -392,7 +372,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                             {
                                 xtype: 'container',
                                 cls: 'blue_font',
-                                html: '净重信息',
+                                html: '净重信息(KG)',
                                 width: 120
                             },
                             {
@@ -404,7 +384,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'h',
+                                        itemId: 'weight',
                                         clearIcon: false,
                                         inputCls: 'color_select_input',
                                         readOnly: true
@@ -434,7 +414,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                 xtype: 'container',
                                 flex: 1,
                                 cls: [
-                                    //'light_blue_border',
+                                    'light_blue_border',
                                     'margin_content'
                                 ],
                                 height: '100%',
@@ -442,24 +422,15 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'selectfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'sampleStatus',
-                                        //clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true,
-                                        options: [
-                                            {
-                                                text: '',
-                                                value: ''
-                                            },
-                                            {
-                                                text: '测试2',
-                                                value: '2'
-                                            },
-                                            {
-                                                text: '测试1',
-                                                value: '1'
-                                            }
-                                        ]
+                                        itemId: 'costCenterCode',
+                                        inputCls: 'white_select_input',
+                                        //usePicker: false,
+                                        //readOnly: true,
+                                        placeHolder: '请选择成本中心！',
+                                        autoSelect: false,
+                                        displayField: 'key',
+                                        store: 'CostDataViewStore',
+                                        valueField: 'value'
                                     }
                                 ]
                             }
@@ -494,55 +465,15 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     {
                                         xtype: 'selectfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'sampleStatus2',
-                                        //clearIcon: false,
+                                        itemId: 'turnCostCenterCode',
                                         inputCls: 'white_select_input',
-                                        //readOnly: true
-                                        options: [
-                                            {
-                                                text: '测试1',
-                                                value: '1'
-                                            },
-                                            {
-                                                text: '测试2',
-                                                value: '2'
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        hidden : true,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: 'sid',
-                                width: 65
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'sid',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
+                                        //usePicker: false,
+                                        //readOnly: true,
+                                        placeHolder: '请选择成本中心！',
+                                        autoSelect: false,
+                                        displayField: 'key',
+                                        store: 'CostDataViewStore',
+                                        valueField: 'value'
                                     }
                                 ]
                             }
@@ -564,7 +495,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     'menu_view_bg',
                                     'base_font_family'
                                 ],
-                                margin: '10 0 0 40 ',
+                                margin: '15 0 0 30',
                                 itemId: 'clearBtn',
                                 width: '40%',
                                 text: '重置'
@@ -575,10 +506,10 @@ Ext.define('app.view.XinDingTurnStoreView', {
                                     'menu_view_bg',
                                     'base_font_family'
                                 ],
-                                margin: '10 0 0 10 ',
-                                itemId: 'mybutton5',
+                                margin: '15 0 0 10',
+                                itemId: 'turnStore',
                                 width: '40%',
-                                text: '出库'
+                                text: '转库'
                             }
                         ]
                     }
@@ -586,175 +517,174 @@ Ext.define('app.view.XinDingTurnStoreView', {
             }
         ],
         listeners: [
-            /*{
-                fn: 'onMytextfield1Blur',
-                event: 'blur',
-                delegate: '#sampleId'
-            },*/
             {
-                fn: 'onMatIdClearicontap',
+                fn: 'onClearBtnTap',
                 event: 'tap',
                 delegate: '#clearBtn'
             },
             {
-                fn: 'onMybutton5Tap',
+                fn: 'onTurnStoreTap',
                 event: 'tap',
-                delegate: '#mybutton5'
+                delegate: '#turnStore'
             },
             {
                 fn: 'onPutawayViewHide',
                 event: 'hide'
+            },
+            {
+                fn:'onenterpriseCodeBlur',
+                event:'blur',
+                delegate:'#enterpriseCode'
             }
         ]
     },
 
+    initialize : function(){
+        setTimeout(function(){
+            var view = Ext.getCmp('xinDingTurnStoreView');
+            view.down('#enterpriseCode').focus();
+        },500)
+    },
+
     /**
-     * 出口卷号失去焦点事件
+     * 企业代码失去焦点事件
      * @param textfield
      * @param e
      * @param eOpts
      */
-    onMytextfield1Blur: function(textfield, e, eOpts) {
-        var currentView = textfield.up('#checkSampleView');
-        var myMatId = textfield.getValue();
-        console.log('失去焦点:',myMatId);//5191400884600//3991006289100
-        if (myMatId!==''&&myMatId!==null&&myMatId!==undefined) {
+    onenterpriseCodeBlur: function (textfield, e, eOpts) {
+        var item = textfield.up('#xinDingTurnStoreView');
+        var enterpriseCode = item.down('#enterpriseCode').getValue();
+        var productLevleCode = item.down('#productLevleCode').getValue();
+        if(enterpriseCode!==''&&productLevleCode!=''){
+            return;
+        }
+        item.down('#enterpriseCode').setValue(enterpriseCode.slice(0,3));
+        item.down('#productTypeCode').setValue(enterpriseCode.slice(3,5));
+        item.down('#productLevleCode').setValue(enterpriseCode.slice(5,7));
+        item.down('#produceDateCode').setValue(enterpriseCode.slice(7,13));
+        item.down('#productUniqueCode').setValue(enterpriseCode.slice(13,20));
+        item.down('#netWeightCode').setValue(enterpriseCode.slice(20,25));
+        item.down('#weight').setValue(enterpriseCode.slice(20,24));
+        item.down('#matNr').setValue('');
+        if (enterpriseCode!==''&&enterpriseCode!==null&&enterpriseCode!==undefined) {
+            Ext.Viewport.setMasked({
+                xtype: 'loadmask',
+                fullscreen:true,
+                message: '请稍候......'
+            });
+            var productLevleCode = item.down('#productLevleCode').getValue();
             Ext.Ajax.request({
-                    url:rootUrl+'/quality/qmSampleRecord/findRecordView.action',
+                url:rootUrl+'/md/confMatXinding/find.action',
                 method:'POST',
                 params: {
-                    'qm.sampleId' : textfield.getValue()
+                    'qm.enterpriseCode' : item.down('#enterpriseCode').getValue(),
+                    'qm.productLevelCode' : productLevleCode
                 },
                 success: function(conn, response, options, eOpts) {
-                    console.log('success');
-                    var text = conn.responseText;
-                    var obj = Ext.decode(text);
-                    console.log('conn = ',conn.responseText);
-                    console.log('obj = ',obj);
-                    if (obj.data.length>0) {
-                        currentView.setData({
-                            a:text
-                        });
-
-                        currentView.down('#matId').setValue(obj.data[0].matId);
-                        currentView.down('#sampleLotNo').setValue(obj.data[0].sampleLotNo);
-                        currentView.down('#createdDt').setValue(obj.data[0].createdDt);
-                        currentView.down('#sampleStatus').setValue(obj.data[0].sampleStatus);
-                        currentView.down('#sid').setValue(obj.data[0].sid);
-                    } else {
-                        if (Ext.os.is('Android')) {
-                            notice('没有匹配的结果！',null,'错误','确定');
-                        } else {
-                            Ext.Msg.alert('错误','没有匹配的结果！',Ext.emptyFn);
-                        }
+                    var result = Ext.decode(conn.responseText);
+                    if(result.meta.success){
+                        item.down('#matNr').setValue(result.data.matNr);
+                    }else{
+                        Ext.Msg.alert('提示','未查询到相关物料信息！');
+                        item.down('#enterpriseCode').setValue('');
+                        item.down('#productTypeCode').setValue('');
+                        item.down('#productLevleCode').setValue('');
+                        item.down('#produceDateCode').setValue('');
+                        item.down('#productUniqueCode').setValue('');
+                        item.down('#netWeightCode').setValue('');
+                        item.down('#weight').setValue('');
+                        item.down('#matNr').setValue('');
                     }
-
                 },
                 failure: function(conn, response, options, eOpts) {
-                    if (Ext.os.is('Android')) {
-                        notice('连接异常！',null,'错误','确定');
-                    } else {
-                        Ext.Msg.alert('错误','连接异常！',Ext.emptyFn);
-                    }
-
+                    Ext.Msg.alert('错误','连接异常！');
                 }
             });
-        } else {
-            if (Ext.os.is('Android')) {
-                notice('出口卷号不能为空！',null,'错误','确定');
-            } else {
-                Ext.Msg.alert('错误','钢卷号不能为空！',Ext.emptyFn);
-            }
-
+            Ext.Viewport.setMasked(false);
         }
-
-    },
-
-    onMatIdClearicontap: function(button, e, eOpts) {
-        var currentView = button.up('#xinDingTurnStoreView');
-        currentView.down('#a').setValue('');
-        currentView.down('#b').setValue('');
-        currentView.down('#c').setValue('');
-        currentView.down('#d').setValue('');
-        currentView.down('#e').setValue('');
-        currentView.down('#f').setValue('');
-        currentView.down('#g').setValue('');
-        currentView.down('#h').setValue('');
-        currentView.down('#sid').setValue('');
-        currentView.down('#sampleStatus2').setValue('1');
     },
 
     /**
-     * 送样按钮
+     * 转库按钮
      * @param button
      * @param e
      * @param eOpts
      */
-    onMybutton5Tap: function(button, e, eOpts) {
-
-        Ext.Msg.alert('提示','转库成功！！');
-        return;
-
-        var item = button.up('checkSampleView');
-        var myMatId = item.down('#sampleId').getValue();
-        if(myMatId==''||myMatId==null||myMatId==undefined) {
-            if (Ext.os.is('Android')) {
-                notice('没有匹配的送样卷号不能送样！',null,'提示','确定');
-            } else {
-                Ext.Msg.alert('错误','没有匹配的送样卷号不能送样！',Ext.emptyFn);
-            }
-            return false;
+    onTurnStoreTap: function(button, e, eOpts) {
+        var item = button.up('#xinDingTurnStoreView');
+        var cost1 = item.down('#costCenterCode').getValue();
+        var cost2 = item.down('#turnCostCenterCode').getValue();
+        if(cost1 == cost2){
+            Ext.Msg.alert('提示','原成本中心与转入成本中心一致!');
+            return;
         }
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
             fullscreen:true,
-            message: '正在送样，请稍候......'
+            message: '请稍候......'
         });
-
         var obj = {};
-        obj.sid= item.down('#sid').getValue();
-        obj.sampleId= item.down('#sampleId').getValue();
-        obj.matId= item.down('#matId').getValue();
-        obj.sampleLotNo= item.down('#sampleLotNo').getValue();
-        obj.createdDt= item.down('#createdDt').getValue();
-        obj.sampleStatus= item.down('#sampleStatus').getValue();
-
+        obj.enterpeiseCode= item.down('#enterpriseCode').getValue();
+        obj.productTypeCode= item.down('#productTypeCode').getValue();
+        obj.productLevleCode= item.down('#productLevleCode').getValue();
+        obj.produceDateCode= item.down('#produceDateCode').getValue();
+        obj.productUniqueCode= item.down('#productUniqueCode').getValue();
+        obj.matNr= item.down('#matNr').getValue();
+        obj.weight= item.down('#weight').getValue();
+        obj.costCenterCode= item.down('#costCenterCode').getValue();
+        obj.turnCostCenterCode= item.down('#turnCostCenterCode').getValue();
         var str = Ext.encode(obj);
-        console.log(str);
         Ext.Ajax.request({
-            url:rootUrl+'/quality/qmSampleRecord/sendSample.action',
-            method:'POST',
+            url: rootUrl+'/mat/stock-record/turnStore.action',
+            method: 'POST',
             jsonData : str,
             success: function(conn, response, options, eOpts) {
-                Ext.Msg.alert('提示','送样成功！',Ext.emptyFn);
-                // 清空数据
-                item.down('#sid').setValue('');
-                item.down('#sampleId').setValue('');
-                item.down('#matId').setValue('');
-                item.down('#sampleLotNo').setValue('');
-                item.down('#createdDt').setValue('');
-                item.down('#sampleStatus').setValue('');
-
-                Ext.Viewport.setMasked(false);
+                var result = Ext.JSON.decode(conn.responseText);
+                if (result.meta.success) {
+                    Ext.Viewport.setMasked(false);
+                    Ext.Msg.alert('提示','转库成功！');
+                    item.down('#enterpriseCode').setValue();
+                    item.down('#productTypeCode').setValue();
+                    item.down('#productLevleCode').setValue();
+                    item.down('#produceDateCode').setValue();
+                    item.down('#productUniqueCode').setValue();
+                    item.down('#netWeightCode').setValue();
+                    item.down('#matNr').setValue();
+                    item.down('#weight').setValue();
+                    //item.down('#costCenterCode').setValue();
+                    //item.down('#turnCostCenterCode').setValue();
+                }else{
+                    Ext.Viewport.setMasked(false);
+                    Ext.Msg.alert('提示','转库失败:' + result.meta.message);
+                }
             },
             failure: function(conn, response, options, eOpts) {
-                var text = conn.responseText;
-                var obj = Ext.decode(text);
-                if (Ext.os.is('Android')) {
-                    notice(obj.meta.message,null,'错误','确定');
-                } else {
-                    Ext.Msg.alert('错误',obj.meta.message,Ext.emptyFn);
-                }
                 Ext.Viewport.setMasked(false);
+                Ext.Msg.alert('错误信息','网络中断或无连接.');
             }
         });
-
     },
 
-    onWAREHOUSE_HALLSelectFieldChange1: function(selectfield, newValue, oldValue, eOpts) {
-
+    /**
+     * 重置按钮
+     * @param button
+     * @param e
+     * @param eOpts
+     */
+    onClearBtnTap: function(button, e, eOpts) {
+        var item = button.up('#xinDingTurnStoreView');
+        item.down('#enterpriseCode').setValue();
+        item.down('#productTypeCode').setValue();
+        item.down('#productLevleCode').setValue();
+        item.down('#produceDateCode').setValue();
+        item.down('#productUniqueCode').setValue();
+        item.down('#netWeightCode').setValue();
+        item.down('#matNr').setValue();
+        item.down('#weight').setValue();
+        //item.down('#costCenterCode').setValue();
+        //item.down('#turnCostCenterCode').setValue();
     },
-
 
     onPutawayViewHide: function(component, eOpts) {
         // component.destory();

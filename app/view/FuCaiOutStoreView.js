@@ -12,7 +12,6 @@
  *
  * Do NOT hand edit this file.
  */
-
 Ext.define('app.view.FuCaiOutStoreView', {
     extend: 'Ext.Container',
     alias: 'widget.fuCaiOutStoreView',
@@ -149,20 +148,24 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'sampleId',
+                                        itemId: 'batchId',
                                         inputCls: 'white_select_input'
                                     }
-                                ]
-                            },
-                            {
-                                xtype: 'button',
-                                cls: [
-                                    'menu_view_bg',
-                                    'base_font_family'
                                 ],
-                                hidden: true,
-                                itemId: 'mybutton4',
-                                text: '扫码'
+                                listeners : [
+                                    {
+
+                                        fn: function(component, eOpts) {
+                                            component.element.on('show',function(){
+                                                Ext.Msg.alert('提示','123！');
+                                                var view=this;
+                                                view.down('#enterpriseCode').focus();
+                                            });
+
+                                        },
+                                        event: 'initialize'
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -191,7 +194,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'matId',
+                                        itemId: 'matNr',
                                         clearIcon: false,
                                         inputCls: 'color_select_input',
                                         readOnly: true
@@ -225,7 +228,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'sampleLotNo',
+                                        itemId: 'weight',
                                         clearIcon: false,
                                         inputCls: 'color_select_input',
                                         readOnly: true
@@ -263,20 +266,14 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     {
                                         xtype: 'selectfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'sampleStatus',
-                                        //clearIcon: false,
+                                        itemId: 'costCenterCode',
                                         inputCls: 'white_select_input',
-                                        //readOnly: true
-                                        options: [
-                                            {
-                                                text: '测试1',
-                                                value: '1'
-                                            },
-                                            {
-                                                text: '测试2',
-                                                value: '2'
-                                            }
-                                        ]
+                                        //usePicker: false,
+                                        placeHolder: '请选择成本中心！',
+                                        autoSelect: false,
+                                        displayField: 'key',
+                                        store: 'CostDataViewStore',
+                                        valueField: 'value'
                                     }
                                 ]
                             }
@@ -310,49 +307,13 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     {
                                         xtype: 'numberfield',
                                         cls: 'small_textfield_cls',
-                                        allowDecimals: true,
-                                        decimalPrecision:3,
+                                        //allowDecimals: true,
+                                        //decimalPrecision:3,
                                         maxValue: 1,
                                         minValue: 0,
-                                        itemId: 'createdDt',
+                                        itemId: 'number',
                                         //clearIcon: false,
-                                        inputCls: 'white_select_input',
-                                        //readOnly: true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        hidden : true,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: 'sid',
-                                width: 65
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'sid',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
+                                        inputCls: 'white_select_input'
                                     }
                                 ]
                             }
@@ -374,10 +335,10 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     'menu_view_bg',
                                     'base_font_family'
                                 ],
-                                margin: '20 0 0 40 ',
+                                margin: '15 0 0 30 ',
                                 itemId: 'clearBtn',
                                 width: '40%',
-                                text: '清空'
+                                text: '重置'
                             },
                             {
                                 xtype: 'button',
@@ -385,204 +346,187 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     'menu_view_bg',
                                     'base_font_family'
                                 ],
-                                margin: '20 0 0 10 ',
-                                itemId: 'mybutton5',
+                                margin: '15 0 0 10 ',
+                                itemId: 'outStore',
                                 width: '40%',
                                 text: '出库'
                             }
                         ]
                     }
-                    /*,
-                    {
-                        xtype: 'button',
-                        cls: [
-                            'menu_view_bg',
-                            'base_font_family'
-                        ],
-                        itemId: 'mybutton5',
-                        margin: '10 ',
-                        width: '100%',
-                        text: '出库'
-                    }*/
                 ]
             }
         ],
         listeners: [
-            /*{
-                fn: 'onMytextfield1Blur',
-                event: 'blur',
-                delegate: '#sampleId'
-            },*/
             {
-                fn: 'onMatIdClearicontap',
+                fn: 'onClearBtnTap',
                 event: 'tap',
                 delegate: '#clearBtn'
             },
             {
-                fn: 'onMybutton5Tap',
+                fn: 'onOutStoreTap',
                 event: 'tap',
-                delegate: '#mybutton5'
+                delegate: '#outStore'
             },
             {
                 fn: 'onPutawayViewHide',
                 event: 'hide'
+            },
+            {
+                fn:'onBatchIdBlur',
+                event:'blur',
+                delegate:'#batchId'
             }
         ]
     },
 
+    initialize : function(){
+        setTimeout(function(){
+            var view = Ext.getCmp('fuCaiOutStoreView');
+            view.down('#batchId').focus();
+        },500)
+    },
+
     /**
-     * 出口卷号失去焦点事件
+     * 批次号失去焦点事件
      * @param textfield
      * @param e
      * @param eOpts
      */
-    onMytextfield1Blur: function(textfield, e, eOpts) {
-        var currentView = textfield.up('#checkSampleView');
-        var myMatId = textfield.getValue();
-        console.log('失去焦点:',myMatId);//5191400884600//3991006289100
-        if (myMatId!==''&&myMatId!==null&&myMatId!==undefined) {
-            Ext.Ajax.request({
-                    url:rootUrl+'/quality/qmSampleRecord/findRecordView.action',
-                method:'POST',
-                params: {
-                    'qm.sampleId' : textfield.getValue()
-                },
-                success: function(conn, response, options, eOpts) {
-                    console.log('success');
-                    var text = conn.responseText;
-                    var obj = Ext.decode(text);
-                    console.log('conn = ',conn.responseText);
-                    console.log('obj = ',obj);
-                    if (obj.data.length>0) {
-                        currentView.setData({
-                            a:text
-                        });
+    onBatchIdBlur: function (textfield, e, eOpts) {
+        var item = textfield.up('#fuCaiOutStoreView');
+        var batchId = item.down("#batchId").getValue();
+        var matNr = item.down("#matNr").getValue();
+        var weight = item.down("#weight").getValue();
+        if (batchId!==''&&batchId!==null&&batchId!==undefined) {
+            if(batchId!==''&&matNr==''&&weight==''){
+                Ext.Viewport.setMasked({
+                    xtype: 'loadmask',
+                    fullscreen:true,
+                    message: '请稍候......'
+                });
+                /*Ext.Ajax.request({
+                 url:rootUrl+'/quality/qmSampleRecord/findRecordView.action',
+                 method:'POST',
+                 params: {
+                 'qm.sampleId' : a
+                 },
+                 success: function(conn, response, options, eOpts) {
+                 console.log('success');
+                 var text = conn.responseText;
+                 var obj = Ext.decode(text);
+                 console.log('conn = ',conn.responseText);
+                 console.log('obj = ',obj);
+                 if (obj.data.length>0) {
+                 currentView.setData({
+                 a:text
+                 });
+                 currentView.down('#matId').setValue(obj.data[0].matId);
+                 currentView.down('#sampleLotNo').setValue(obj.data[0].sampleLotNo);
+                 currentView.down('#createdDt').setValue(obj.data[0].createdDt);
+                 currentView.down('#sampleStatus').setValue(obj.data[0].sampleStatus);
+                 currentView.down('#sid').setValue(obj.data[0].sid);
+                 } else {
+                 if (Ext.os.is('Android')) {
+                 notice('没有匹配的结果！',null,'错误','确定');
+                 } else {
+                 Ext.Msg.alert('错误','没有匹配的结果！',Ext.emptyFn);
+                 }
+                 }
 
-                        currentView.down('#matId').setValue(obj.data[0].matId);
-                        currentView.down('#sampleLotNo').setValue(obj.data[0].sampleLotNo);
-                        currentView.down('#createdDt').setValue(obj.data[0].createdDt);
-                        currentView.down('#sampleStatus').setValue(obj.data[0].sampleStatus);
-                        currentView.down('#sid').setValue(obj.data[0].sid);
-                    } else {
-                        if (Ext.os.is('Android')) {
-                            notice('没有匹配的结果！',null,'错误','确定');
-                        } else {
-                            Ext.Msg.alert('错误','没有匹配的结果！',Ext.emptyFn);
-                        }
-                    }
+                 },
+                 failure: function(conn, response, options, eOpts) {
+                 if (Ext.os.is('Android')) {
+                 notice('连接异常！',null,'错误','确定');
+                 } else {
+                 Ext.Msg.alert('错误','连接异常！',Ext.emptyFn);
+                 }
+                 }
+                 });*/
 
-                },
-                failure: function(conn, response, options, eOpts) {
-                    if (Ext.os.is('Android')) {
-                        notice('连接异常！',null,'错误','确定');
-                    } else {
-                        Ext.Msg.alert('错误','连接异常！',Ext.emptyFn);
-                    }
+                item.down('#batchId').setValue(batchId.slice(4,14));
+                item.down('#matNr').setValue(batchId.slice(20,28));
+                item.down('#weight').setValue(batchId.slice(43,48));
 
-                }
-            });
-        } else {
-            if (Ext.os.is('Android')) {
-                notice('出口卷号不能为空！',null,'错误','确定');
-            } else {
-                Ext.Msg.alert('错误','钢卷号不能为空！',Ext.emptyFn);
+                /*var str = '{'+batchId+'}';
+                var jsonStr = Ext.decode(str);
+                item.down('#batchId').setValue(jsonStr.a);
+                item.down('#matNr').setValue(jsonStr.b);
+                item.down('#weight').setValue(jsonStr.c);*/
+
+                Ext.Viewport.setMasked(false);
             }
-
+        }else{
+            item.down('#batchId').setValue('');
+            item.down('#matNr').setValue('');
+            item.down('#weight').setValue('');
         }
-
-    },
-
-    onMatIdClearicontap: function(button, e, eOpts) {
-        var currentView = button.up('#fuCaiOutStoreView');
-        currentView.down('#sampleId').setValue('');
-        currentView.down('#matId').setValue('');
-        currentView.down('#sampleLotNo').setValue('');
-        currentView.down('#createdDt').setValue('');
-        currentView.down('#sampleStatus').setValue('1');
-        currentView.down('#sid').setValue('');
     },
 
     /**
-     * 送样按钮
+     * 出库按钮
      * @param button
      * @param e
      * @param eOpts
      */
-    onMybutton5Tap: function(button, e, eOpts) {
-
-        Ext.Msg.alert('提示','出库成功！');
-
-        var currentView = button.up('#fuCaiOutStoreView');
-        currentView.down('#sampleId').setValue('');
-        currentView.down('#matId').setValue('');
-        currentView.down('#sampleLotNo').setValue('');
-        currentView.down('#createdDt').setValue('');
-        currentView.down('#sampleStatus').setValue('1');
-        currentView.down('#sid').setValue('');
-
-        return;
-
-
-        var item = button.up('checkSampleView');
-        var myMatId = item.down('#sampleId').getValue();
-        if(myMatId==''||myMatId==null||myMatId==undefined) {
-            if (Ext.os.is('Android')) {
-                notice('没有匹配的送样卷号不能送样！',null,'提示','确定');
-            } else {
-                Ext.Msg.alert('错误','没有匹配的送样卷号不能送样！',Ext.emptyFn);
-            }
-            return false;
-        }
-        Ext.Viewport.setMasked({
-            xtype: 'loadmask',
-            fullscreen:true,
-            message: '正在送样，请稍候......'
-        });
-
-        var obj = {};
-        obj.sid= item.down('#sid').getValue();
-        obj.sampleId= item.down('#sampleId').getValue();
-        obj.matId= item.down('#matId').getValue();
-        obj.sampleLotNo= item.down('#sampleLotNo').getValue();
-        obj.createdDt= item.down('#createdDt').getValue();
-        obj.sampleStatus= item.down('#sampleStatus').getValue();
-
-        var str = Ext.encode(obj);
-        console.log(str);
-        Ext.Ajax.request({
-            url:rootUrl+'/quality/qmSampleRecord/sendSample.action',
-            method:'POST',
-            jsonData : str,
-            success: function(conn, response, options, eOpts) {
-                Ext.Msg.alert('提示','送样成功！',Ext.emptyFn);
-                // 清空数据
-                item.down('#sid').setValue('');
-                item.down('#sampleId').setValue('');
-                item.down('#matId').setValue('');
-                item.down('#sampleLotNo').setValue('');
-                item.down('#createdDt').setValue('');
-                item.down('#sampleStatus').setValue('');
-
-                Ext.Viewport.setMasked(false);
-            },
-            failure: function(conn, response, options, eOpts) {
-                var text = conn.responseText;
-                var obj = Ext.decode(text);
-                if (Ext.os.is('Android')) {
-                    notice(obj.meta.message,null,'错误','确定');
-                } else {
-                    Ext.Msg.alert('错误',obj.meta.message,Ext.emptyFn);
+    onOutStoreTap: function(button, e, eOpts) {
+        var item = button.up('#fuCaiOutStoreView');
+        var weight = item.down('#weight').getValue();
+        var number = item.down('#number').getValue();
+        var reg = /^[0-9]+(.[0-9]{1,3})?$/;
+        var number = item.down('#number').getValue();
+        if(!reg.test(number)){
+            Ext.Msg.alert('提示','输入格式类型有误！');
+        }else{
+            Ext.Viewport.setMasked({
+                xtype: 'loadmask',
+                fullscreen:true,
+                message: '请稍候......'
+            });
+            var obj = {};
+            obj.batchId= item.down('#batchId').getValue();
+            obj.matNr= item.down('#matNr').getValue();
+            obj.costCenterCode= item.down('#costCenterCode').getValue();
+            obj.weight = weight / 10 * number;
+            var str = Ext.encode(obj);
+            Ext.Ajax.request({
+                url: rootUrl+'/mat/stock-record/outStore.action',
+                method: 'POST',
+                jsonData : str,
+                success: function(conn, response, options, eOpts) {
+                    var result = Ext.JSON.decode(conn.responseText);
+                    if (result.meta.success) {
+                        Ext.Viewport.setMasked(false);
+                        Ext.Msg.alert('提示','出库成功！');
+                    }else{
+                        Ext.Viewport.setMasked(false);
+                        Ext.Msg.alert('提示', "出库失败:" + result.meta.message);
+                    }
+                    item.down('#batchId').setValue('');
+                    item.down('#matNr').setValue('');
+                    item.down('#weight').setValue('');
+                    item.down('#number').setValue('');
+                },
+                failure: function(conn, response, options, eOpts) {
+                    Ext.Viewport.setMasked(false);
+                    Ext.Msg.alert('错误信息','网络中断或无连接.');
                 }
-                Ext.Viewport.setMasked(false);
-            }
-        });
-
+            });
+        }
     },
 
-    onWAREHOUSE_HALLSelectFieldChange1: function(selectfield, newValue, oldValue, eOpts) {
-
+    /**
+     * 重置按钮
+     * @param button
+     * @param e
+     * @param eOpts
+     */
+    onClearBtnTap: function(button, e, eOpts) {
+        var item = button.up('#fuCaiOutStoreView');
+        item.down('#batchId').setValue('');
+        item.down('#matNr').setValue('');
+        item.down('#weight').setValue('');
+        item.down('#number').setValue('');
     },
-
 
     onPutawayViewHide: function(component, eOpts) {
         // component.destory();

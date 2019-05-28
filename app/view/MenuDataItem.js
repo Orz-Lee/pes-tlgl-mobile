@@ -69,9 +69,9 @@ Ext.define('app.view.MenuDataItem', {
     updateRecord: function(record) {
         // Provide an implementation to update this container's child items
         var me =this;
-        console.log(me.down('#icon'));
+        //console.log(me.down('#icon'));
         if (record!==null) {
-            console.log(record);
+            //console.log(record);
             me.down('#icon').setSrc(record.get('image'));
             me.down('#label').setHtml(record.get('label'));
 

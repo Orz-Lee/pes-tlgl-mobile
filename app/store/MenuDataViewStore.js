@@ -21,56 +21,7 @@ Ext.define('app.store.MenuDataViewStore', {
     ],
 
     config: {
-        data: [
-            {
-                image: 'resources/images/rc_icon.png',
-                label: '下线入库'
-            },
-            {
-                image: 'resources/images/rc_icon.png',
-                label: '酸轧入库'
-            },
-            {
-                image: 'resources/images/ck_icon.png',
-                label: '原料出库'
-            },
-            {
-                image: 'resources/images/ck_icon.png',
-                label: '成品出库'
-            },
-            {
-                image: 'resources/images/dd_icon.png',
-                label: '扫码倒垛'
-            },
-            {
-                image: 'resources/images/pd_icon.png',
-                label: '盘库确认'
-            },
-            {
-                image: 'resources/images/wq_icon.png',
-                label: '成品接收'
-            },
-            {
-                image: 'resources/images/hd_icon.png',
-                label: '标签核对'
-            },
-            {
-                image: 'resources/images/hd_icon.png',
-                label: '有计划投料'
-            },
-            {
-                image: 'resources/images/hd_icon.png',
-                label: '无计划投料'
-            },
-            {
-                image: 'resources/images/hd_icon.png',
-                label: '卸料回库'
-            },
-            {
-                image: 'resources/images/hd_icon.png',
-                label: '发运备料'
-            }
-        ],
+        data: [],
         model: 'app.model.MenuDataViewModel',
         storeId: 'MenuDataViewStore'
     }
