@@ -136,7 +136,8 @@ Ext.define('app.view.MenuView', {
             },
             failure: function(conn, response, options, eOpts) {
                 Ext.Viewport.setMasked(false);
-                Ext.Msg.alert('错误信息','网络中断或无连接.');
+                Ext.Msg.alert('提示','注销成功！');
+                //Ext.Msg.alert('错误信息','网络中断或无连接.');
             }
         });
 
@@ -157,7 +158,11 @@ Ext.define('app.view.MenuView', {
         var targetView;
 
         setTimeout(function(){
-            if ('SL-MOBILE-01' ===label) {
+            if ('SL-MOBILE-00' ===label) {
+                targetView = Ext.create('app.view.FuCaiInStoreView');
+                root.push(targetView);
+            }
+            else if ('SL-MOBILE-01' ===label) {
                 targetView = Ext.create('app.view.FuCaiOutStoreView');
                 root.push(targetView);
             }
@@ -171,6 +176,14 @@ Ext.define('app.view.MenuView', {
             }
             else if ('SL-MOBILE-04' ===label) {
                 targetView = Ext.create('app.view.XinDingTurnStoreView');
+                root.push(targetView);
+            }
+            else if ('SL-MOBILE-05' ===label) {
+                targetView = Ext.create('app.view.XinDingInStoreView');
+                root.push(targetView);
+            }
+            else if ('SL-MOBILE-08' ===label) {
+                targetView = Ext.create('app.view.StoreCheck');
                 root.push(targetView);
             }
             Ext.Viewport.setMasked(false);

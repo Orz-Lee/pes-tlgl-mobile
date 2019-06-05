@@ -13,9 +13,9 @@
  * Do NOT hand edit this file.
  */
 
-Ext.define('app.view.XinDingOutStoreView', {
+Ext.define('app.view.XinDingInStoreView', {
     extend: 'Ext.Container',
-    alias: 'widget.xinDingOutStoreView',
+    alias: 'widget.xinDingInStoreView',
 
     requires: [
         'Ext.Container',
@@ -25,7 +25,7 @@ Ext.define('app.view.XinDingOutStoreView', {
     ],
 
     config: {
-        id: 'xinDingOutStoreView',
+        id: 'xinDingInStoreView',
         layout: 'vbox',
         items: [
             {
@@ -52,7 +52,7 @@ Ext.define('app.view.XinDingOutStoreView', {
                                     'title_font_size',
                                     'title_cls'
                                 ],
-                                html: '锌锭出库'
+                                html: '锌锭入库'
                             }
                         ]
                     },
@@ -393,7 +393,48 @@ Ext.define('app.view.XinDingOutStoreView', {
                             }
                         ]
                     },
-                    */
+                    {
+                        xtype: 'container',
+                        height: 36,
+                        //hidden : true,
+                        margin: '2 0',
+                        width: '100%',
+                        layout: {
+                            type: 'hbox',
+                            align: 'center'
+                        },
+                        items: [
+                            {
+                                xtype: 'container',
+                                cls: 'blue_font',
+                                html: '成本中心',
+                                width: 120
+                            },
+                            {
+                                xtype: 'container',
+                                flex: 1,
+                                cls: [
+                                    'light_blue_border',
+                                    'margin_content'
+                                ],
+                                height: '100%',
+                                items: [
+                                    {
+                                        xtype: 'selectfield',
+                                        cls: 'small_textfield_cls',
+                                        itemId: 'costCenterCode',
+                                        inputCls: 'white_select_input',
+                                        //readOnly: true,
+                                        placeHolder: '请选择成本中心！',
+                                        autoSelect: false,
+                                        displayField: 'key',
+                                        store: 'CostDataViewStore',
+                                        valueField: 'value'
+                                    }
+                                ]
+                            }
+                        ]
+                    },*/
                     {
                         xtype: 'container',
                         height: 36,
@@ -601,9 +642,9 @@ Ext.define('app.view.XinDingOutStoreView', {
                                     'base_font_family'
                                 ],
                                 margin: '15 0 0 10',
-                                itemId: 'outStore',
+                                itemId: 'inStore',
                                 width: '40%',
-                                text: '出库'
+                                text: '入库'
                             }
                         ]
                     }
@@ -617,9 +658,9 @@ Ext.define('app.view.XinDingOutStoreView', {
                 delegate: '#clearBtn'
             },
             {
-                fn: 'onOutStoreTap',
+                fn: 'onInStoreTap',
                 event: 'tap',
-                delegate: '#outStore'
+                delegate: '#inStore'
             },
             {
                 fn: 'onPutawayViewHide',
@@ -635,7 +676,7 @@ Ext.define('app.view.XinDingOutStoreView', {
 
     initialize: function(){
         setTimeout(function(){
-            var view = Ext.getCmp('xinDingOutStoreView');
+            var view = Ext.getCmp('xinDingInStoreView');
             view.down('#grade').focus();
         },500)
     },
@@ -647,7 +688,7 @@ Ext.define('app.view.XinDingOutStoreView', {
      * @param eOpts
      */
     onGradeBlur: function (textfield, e, eOpts) {
-        var item = textfield.up('#xinDingOutStoreView');
+        var item = textfield.up('#xinDingInStoreView');
         var grade = item.down('#grade').getValue();
         if(grade.length == 0){
             item.down('#grade').setValue();
@@ -690,6 +731,7 @@ Ext.define('app.view.XinDingOutStoreView', {
                 if(result.meta.success){
                     item.down('#matNr').setValue(result.data.matNr);
                     item.down('#matDesc').setValue(result.data.matDesc);
+
                 }else{
                     Ext.Msg.alert('提示','未查询到相关物料信息！');
                 }
@@ -707,13 +749,13 @@ Ext.define('app.view.XinDingOutStoreView', {
     },
 
     /**
-     * 出库按钮
+     * 入库按钮
      * @param button
      * @param e
      * @param eOpts
      */
-    onOutStoreTap: function(button, e, eOpts) {
-        var item = button.up('#xinDingOutStoreView');
+    onInStoreTap: function(button, e, eOpts) {
+        var item = button.up('#xinDingInStoreView');
         var grade = item.down('#grade').getValue();
         var matNr = item.down('#matNr').getValue();
         var matDesc = item.down('#matDesc').getValue();
@@ -741,27 +783,26 @@ Ext.define('app.view.XinDingOutStoreView', {
             message: '请稍候......'
         });
         var obj = {};
-        obj.matNr = item.down('#matNr').getValue();
-        //obj.matDesc = item.down('#matDesc').getValue();
-        obj.weight = item.down('#weight').getValue();
-        obj.costCenterCode = item.down('#costCenterCode').getValue();
+        obj.matNr = matNr;
+        obj.matDesc = matDesc;
+        obj.weight = weight;
+        obj.costCenterCode = costCenterCode;
         var str = Ext.encode(obj);
         Ext.Ajax.request({
-            url: rootUrl+'/mat/stock-record/outStore.action',
+            url: rootUrl+'/mat/stock-record/inStore.action',
             method: 'POST',
             jsonData : str,
             success: function(conn, response, options, eOpts) {
                 Ext.Viewport.setMasked(false);
                 var result = Ext.JSON.decode(conn.responseText);
                 if (result.meta.success) {
-                    Ext.Msg.alert('提示','出库成功！');
-
+                    Ext.Msg.alert('提示','入库成功！');
                     item.down('#grade').setValue();
                     item.down('#weight').setValue();
                     item.down('#matNr').setValue();
                     item.down('#matDesc').setValue();
                 }else{
-                    Ext.Msg.alert('提示', '出库失败:' + result.meta.message);
+                    Ext.Msg.alert('提示', '入库失败:' + result.meta.message);
                 }
             },
             failure: function(conn, response, options, eOpts) {
@@ -778,7 +819,7 @@ Ext.define('app.view.XinDingOutStoreView', {
      * @param eOpts
      */
     onClearBtnTap: function(button, e, eOpts) {
-        var item = button.up('#xinDingOutStoreView');
+        var item = button.up('#xinDingInStoreView');
         item.down('#grade').setValue();
         item.down('#weight').setValue();
         item.down('#matNr').setValue();

@@ -25,7 +25,7 @@ Ext.define('app.view.MenuDataItem', {
     config: {
         margin: '1%',
         minHeight: 90,
-        width: '47%',
+        width: '31%',
         layout: {
             type: 'vbox',
             pack: 'center'
@@ -48,7 +48,7 @@ Ext.define('app.view.MenuDataItem', {
                         items: [
                             {
                                 xtype: 'image',
-                                height: 50,
+                                height: 35,
                                 itemId: 'icon',
                                 width: 90,
                                 src: '%20'

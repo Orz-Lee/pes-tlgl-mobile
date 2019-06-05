@@ -645,6 +645,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "app.model.MenuDataViewModel": [],
   "app.store.CostDataViewStore": [],
   "app.store.MenuDataViewStore": [],
+  "app.view.FuCaiInStoreView": [],
   "app.view.FuCaiOutStoreView": [],
   "app.view.FuCaiTurnStoreView": [],
   "app.view.LoginView": [],
@@ -652,6 +653,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "app.view.MenuDataItem": [],
   "app.view.MenuView": [],
   "app.view.RootNavigationView": [],
+  "app.view.XinDingInStoreView": [],
   "app.view.XinDingOutStoreView": [],
   "app.view.XinDingTurnStoreView": []
 });
@@ -1375,6 +1377,9 @@ Ext.ClassManager.addNameAliasMappings({
   "app.model.MenuDataViewModel": [],
   "app.store.CostDataViewStore": [],
   "app.store.MenuDataViewStore": [],
+  "app.view.FuCaiInStoreView": [
+    "widget.fuCaiInStoreView"
+  ],
   "app.view.FuCaiOutStoreView": [
     "widget.fuCaiOutStoreView"
   ],
@@ -1394,6 +1399,9 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.menuview"
   ],
   "app.view.RootNavigationView": [],
+  "app.view.XinDingInStoreView": [
+    "widget.xinDingInStoreView"
+  ],
   "app.view.XinDingOutStoreView": [
     "widget.xinDingOutStoreView"
   ],

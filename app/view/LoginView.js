@@ -61,6 +61,7 @@ Ext.define('app.view.LoginView', {
                             {
                                 xtype: 'textfield',
                                 itemId: 'userName'
+                                ,value:'tltest'
                             }
                         ]
                     },
@@ -81,6 +82,7 @@ Ext.define('app.view.LoginView', {
                             {
                                 xtype: 'passwordfield',
                                 itemId: 'passWord'
+                                ,value:'123abc'
                             }
                         ]
                     },
@@ -210,14 +212,20 @@ Ext.define('app.view.LoginView', {
         var root = Ext.getCmp('rootView');
         var nemuStore = Ext.getStore('MenuDataViewStore');
         nemuStore.removeAll();
+        nemuStore.add({'image':'resources/images/hd_icon.png',
+            'label':'辅材入库','RES_ID':'SL-MOBILE-00'});
         nemuStore.add({'image':'resources/images/ck_icon.png',
             'label':'辅材出库','RES_ID':'SL-MOBILE-01'});
-        nemuStore.add({'image':'resources/images/dd_icon.png',
+        nemuStore.add({'image':'resources/images/rc_icon.png',
             'label':'辅材转库','RES_ID':'SL-MOBILE-02'});
+        nemuStore.add({'image':'resources/images/hd_icon.png',
+            'label':'锌锭入库','RES_ID':'SL-MOBILE-05'});
         nemuStore.add({'image':'resources/images/ck_icon.png',
             'label':'锌锭出库','RES_ID':'SL-MOBILE-03'});
-        nemuStore.add({'image':'resources/images/dd_icon.png',
+        nemuStore.add({'image':'resources/images/rc_icon.png',
             'label':'锌锭转库','RES_ID':'SL-MOBILE-04'});
+        nemuStore.add({'image':'resources/images/pd_icon.png',
+            'label':'二维码生成','RES_ID':'SL-MOBILE-08'});
         root.push(menuView);
         Ext.Viewport.setMasked(false);
         return;*/
@@ -252,15 +260,20 @@ Ext.define('app.view.LoginView', {
                         var root = Ext.getCmp('rootView');
                         var nemuStore = Ext.getStore('MenuDataViewStore');
                         nemuStore.removeAll();
+                        nemuStore.add({'image':'resources/images/hd_icon.png',
+                            'label':'辅材入库','RES_ID':'SL-MOBILE-00'});
                         nemuStore.add({'image':'resources/images/ck_icon.png',
                             'label':'辅材出库','RES_ID':'SL-MOBILE-01'});
-                        nemuStore.add({'image':'resources/images/dd_icon.png',
+                        nemuStore.add({'image':'resources/images/rc_icon.png',
                             'label':'辅材转库','RES_ID':'SL-MOBILE-02'});
+                        nemuStore.add({'image':'resources/images/hd_icon.png',
+                            'label':'锌锭入库','RES_ID':'SL-MOBILE-05'});
                         nemuStore.add({'image':'resources/images/ck_icon.png',
                             'label':'锌锭出库','RES_ID':'SL-MOBILE-03'});
-                        nemuStore.add({'image':'resources/images/dd_icon.png',
+                        nemuStore.add({'image':'resources/images/rc_icon.png',
                             'label':'锌锭转库','RES_ID':'SL-MOBILE-04'});
-                        root.push(menuView);
+                        /*nemuStore.add({'image':'resources/images/pd_icon.png',
+                            'label':'二维码生成','RES_ID':'SL-MOBILE-08'});*/
 
                         //获取用户组织信息
                         Ext.Ajax.request({
@@ -280,6 +293,7 @@ Ext.define('app.view.LoginView', {
                                     var costStore = Ext.getStore('CostDataViewStore');
                                     costStore.setData(result.items);
                                     Ext.Viewport.setMasked(false);
+                                    root.push(menuView);
                                 } else {
                                     //返回失败
                                     Ext.Viewport.setMasked(false);
@@ -288,7 +302,7 @@ Ext.define('app.view.LoginView', {
                             },
                             failure: function(conn, response, options, eOpts) {
                                 Ext.Viewport.setMasked(false);
-                                Ext.Msg.alert("提示","成本中心信息获取，请求时出错！");
+                                Ext.Msg.alert("提示","网络异常，请重新登录.");
                             }
                         });
                     } else {
@@ -299,7 +313,7 @@ Ext.define('app.view.LoginView', {
                 },
                 failure: function(conn, response, options, eOpts) {
                     Ext.Viewport.setMasked(false);
-                    Ext.Msg.alert('错误信息','网络中断或无连接.');
+                    Ext.Msg.alert('错误信息','网络异常，请重新登录.');
                 }
             });
         }

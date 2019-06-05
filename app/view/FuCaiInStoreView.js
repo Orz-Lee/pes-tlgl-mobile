@@ -12,10 +12,9 @@
  *
  * Do NOT hand edit this file.
  */
-
-Ext.define('app.view.FuCaiTurnStoreView', {
+Ext.define('app.view.FuCaiInStoreView', {
     extend: 'Ext.Container',
-    alias: 'widget.fuCaiTurnStoreView',
+    alias: 'widget.fuCaiInStoreView',
 
     requires: [
         'Ext.Container',
@@ -25,7 +24,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
     ],
 
     config: {
-        id: 'fuCaiTurnStoreView',
+        id: 'fuCaiInStoreView',
         layout: 'vbox',
         items: [
             {
@@ -52,7 +51,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
                                     'title_font_size',
                                     'title_cls'
                                 ],
-                                html: '辅材转库'
+                                html: '辅材入库'
                             }
                         ]
                     },
@@ -272,7 +271,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
                             {
                                 xtype: 'container',
                                 cls: 'blue_font',
-                                html: '原成本中心',
+                                html: '成本中心',
                                 width: 100
                             },
                             {
@@ -311,53 +310,12 @@ Ext.define('app.view.FuCaiTurnStoreView', {
                         },
                         items: [
                             {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '转入成本中心',
-                                width: 100
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: [
-                                    'light_blue_border',
-                                    'margin_content'
-                                ],
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'selectfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'turnCostCenterCode',
-                                        inputCls: 'white_select_input',
-                                        //usePicker: false,
-                                        placeHolder: '请选择成本中心！',
-                                        autoSelect: false,
-                                        displayField: 'key',
-                                        store: 'CostDataViewStore',
-                                        valueField: 'value'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
                                 xtype: 'button',
                                 cls: [
                                     'menu_view_bg',
                                     'base_font_family'
                                 ],
-                                margin: '5 0 0 30 ',
+                                margin: '15 0 0 30 ',
                                 itemId: 'clearBtn',
                                 width: '40%',
                                 text: '重置'
@@ -368,10 +326,10 @@ Ext.define('app.view.FuCaiTurnStoreView', {
                                     'menu_view_bg',
                                     'base_font_family'
                                 ],
-                                margin: '5 0 0 10 ',
-                                itemId: 'turnStore',
+                                margin: '15 0 0 10 ',
+                                itemId: 'inStore',
                                 width: '40%',
-                                text: '转库'
+                                text: '入库'
                             }
                         ]
                     }
@@ -385,9 +343,9 @@ Ext.define('app.view.FuCaiTurnStoreView', {
                 delegate: '#clearBtn'
             },
             {
-                fn: 'onTurnStoreTap',
+                fn: 'onInStoreTap',
                 event: 'tap',
-                delegate: '#turnStore'
+                delegate: '#inStore'
             },
             {
                 fn: 'onPutawayViewHide',
@@ -403,7 +361,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
 
     initialize : function(){
         setTimeout(function(){
-            var view = Ext.getCmp('fuCaiTurnStoreView');
+            var view = Ext.getCmp('fuCaiInStoreView');
             view.down('#batchId').focus();
         },500)
     },
@@ -415,7 +373,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
      * @param eOpts
      */
     onBatchIdBlur: function (textfield, e, eOpts) {
-        var item = textfield.up('#fuCaiTurnStoreView');
+        var item = textfield.up('#fuCaiInStoreView');
         var batchId = item.down("#batchId").getValue();
         var matNr = item.down("#matNr").getValue();
         if (batchId!==''&&batchId!==null&&batchId!==undefined) {
@@ -464,19 +422,18 @@ Ext.define('app.view.FuCaiTurnStoreView', {
     },
 
     /**
-     * 转库按钮
+     * 入库按钮
      * @param button
      * @param e
      * @param eOpts
      */
-    onTurnStoreTap: function(button, e, eOpts) {
-        var item = button.up('#fuCaiTurnStoreView');
+    onInStoreTap: function(button, e, eOpts) {
+        var item = button.up('#fuCaiInStoreView');
         var batchId= item.down('#batchId').getValue();
         var matNr= item.down('#matNr').getValue();
         var matDesc= item.down('#matDesc').getValue();
         var weight = item.down('#weight').getValue();
-        var cost1 = item.down('#costCenterCode').getValue();
-        var cost2 = item.down('#turnCostCenterCode').getValue();
+        var costCenterCode= item.down('#costCenterCode').getValue();
         if(batchId == null || batchId == ''){
             Ext.Msg.alert('提示','批次号不能为空！');
             return;
@@ -489,16 +446,8 @@ Ext.define('app.view.FuCaiTurnStoreView', {
             Ext.Msg.alert('提示','标准重量不能为空！');
             return;
         }
-        if(cost1 == null || cost1 == ''){
-            Ext.Msg.alert('提示','原成本中心不能为空！');
-            return;
-        }
-        if(cost2 == null || cost2 == ''){
-            Ext.Msg.alert('提示','转入成本中心不能为空！');
-            return;
-        }
-        if(cost1 == cost2){
-            Ext.Msg.alert('提示','原成本中心与转入成本中心一致!');
+        if(costCenterCode == null || costCenterCode == ''){
+            Ext.Msg.alert('提示','成本中心不能为空！');
             return;
         }
         Ext.Viewport.setMasked({
@@ -509,35 +458,33 @@ Ext.define('app.view.FuCaiTurnStoreView', {
         var obj = {};
         obj.batchId= batchId;
         obj.matNr= matNr;
-        obj.weight= weight;
-        obj.costCenterCode= cost1;
-        obj.costCenterOutCode= cost2;
+        obj.matDesc= matDesc;
+        obj.weight = weight;
+        obj.costCenterCode= costCenterCode;
         var str = Ext.encode(obj);
         Ext.Ajax.request({
-            url:rootUrl+'/mat/stock-record/turnStore.action',
-            method:'POST',
+            url: rootUrl+'/mat/stock-record/inStore.action',
+            method: 'POST',
             jsonData : str,
             success: function(conn, response, options, eOpts) {
+                Ext.Viewport.setMasked(false);
                 var result = Ext.JSON.decode(conn.responseText);
                 if (result.meta.success) {
-                    Ext.Viewport.setMasked(false);
-                    Ext.Msg.alert('提示','转库成功!');
+                    Ext.Msg.alert('提示','入库成功！');
 
+                    item.down('#batchId').setValue('');
+                    item.down('#matNr').setValue('');
+                    item.down('#matDesc').setValue('');
+                    item.down('#weight').setValue('');
                 }else{
-                    Ext.Viewport.setMasked(false);
-                    Ext.Msg.alert('提示','转库失败:' + result.meta.message);
+                    Ext.Msg.alert('提示', "入库失败:" + result.meta.message);
                 }
-                item.down('#batchId').setValue('');
-                item.down('#matNr').setValue('');
-                item.down('#matDesc').setValue('');
-                item.down('#weight').setValue('');
             },
             failure: function(conn, response, options, eOpts) {
                 Ext.Viewport.setMasked(false);
-                Ext.Msg.alert('错误信息','网络中断或无连接.');
+                Ext.Msg.alert('错误信息','网络连接异常.');
             }
         });
-
     },
 
     /**
@@ -547,7 +494,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
      * @param eOpts
      */
     onClearBtnTap: function(button, e, eOpts) {
-        var item = button.up('#fuCaiTurnStoreView');
+        var item = button.up('#fuCaiInStoreView');
         item.down('#batchId').setValue('');
         item.down('#matNr').setValue('');
         item.down('#matDesc').setValue('');

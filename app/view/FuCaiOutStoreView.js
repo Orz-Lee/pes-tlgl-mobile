@@ -113,7 +113,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                 xtype: 'container',
                 flex: 1,
                 cls: 'white_bg',
-                padding: '10% 2%',
+                padding: '5% 2%',
                 scrollable: 'vertical',
                 layout: {
                     type: 'vbox',
@@ -134,7 +134,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                 xtype: 'container',
                                 cls: 'blue_font',
                                 html: '批次号',
-                                width: 65
+                                width: 100
                             },
                             {
                                 xtype: 'container',
@@ -150,20 +150,6 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                         cls: 'small_textfield_cls',
                                         itemId: 'batchId',
                                         inputCls: 'white_select_input'
-                                    }
-                                ],
-                                listeners : [
-                                    {
-
-                                        fn: function(component, eOpts) {
-                                            component.element.on('show',function(){
-                                                Ext.Msg.alert('提示','123！');
-                                                var view=this;
-                                                view.down('#enterpriseCode').focus();
-                                            });
-
-                                        },
-                                        event: 'initialize'
                                     }
                                 ]
                             }
@@ -183,7 +169,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                 xtype: 'container',
                                 cls: 'blue_font',
                                 html: '物料编码',
-                                width: 65
+                                width: 100
                             },
                             {
                                 xtype: 'container',
@@ -216,8 +202,42 @@ Ext.define('app.view.FuCaiOutStoreView', {
                             {
                                 xtype: 'container',
                                 cls: 'blue_font',
-                                html: '重量列表',
-                                width: 65
+                                html: '物料描述',
+                                width: 100
+                            },
+                            {
+                                xtype: 'container',
+                                flex: 1,
+                                cls: 'margin_content',
+                                height: '100%',
+                                items: [
+                                    {
+                                        xtype: 'textfield',
+                                        cls: 'small_textfield_cls',
+                                        itemId: 'matDesc',
+                                        clearIcon: false,
+                                        inputCls: 'color_select_input',
+                                        readOnly: true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        xtype: 'container',
+                        height: 36,
+                        margin: '2 0',
+                        width: '100%',
+                        layout: {
+                            type: 'hbox',
+                            align: 'center'
+                        },
+                        items: [
+                            {
+                                xtype: 'container',
+                                cls: 'blue_font',
+                                html: '标准重量(KG)',
+                                width: 100
                             },
                             {
                                 xtype: 'container',
@@ -252,7 +272,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                 xtype: 'container',
                                 cls: 'blue_font',
                                 html: '成本中心',
-                                width: 65
+                                width: 100
                             },
                             {
                                 xtype: 'container',
@@ -293,7 +313,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                 xtype: 'container',
                                 cls: 'blue_font',
                                 html: '出库量',
-                                width: 65
+                                width: 100
                             },
                             {
                                 xtype: 'container',
@@ -335,7 +355,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     'menu_view_bg',
                                     'base_font_family'
                                 ],
-                                margin: '15 0 0 30 ',
+                                margin: '5 0 0 30 ',
                                 itemId: 'clearBtn',
                                 width: '40%',
                                 text: '重置'
@@ -346,7 +366,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                     'menu_view_bg',
                                     'base_font_family'
                                 ],
-                                margin: '15 0 0 10 ',
+                                margin: '5 0 0 10 ',
                                 itemId: 'outStore',
                                 width: '40%',
                                 text: '出库'
@@ -396,68 +416,47 @@ Ext.define('app.view.FuCaiOutStoreView', {
         var item = textfield.up('#fuCaiOutStoreView');
         var batchId = item.down("#batchId").getValue();
         var matNr = item.down("#matNr").getValue();
-        var weight = item.down("#weight").getValue();
         if (batchId!==''&&batchId!==null&&batchId!==undefined) {
-            if(batchId!==''&&matNr==''&&weight==''){
+            if(batchId!==''&&matNr==''){
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
                     fullscreen:true,
                     message: '请稍候......'
                 });
-                /*Ext.Ajax.request({
-                 url:rootUrl+'/quality/qmSampleRecord/findRecordView.action',
-                 method:'POST',
-                 params: {
-                 'qm.sampleId' : a
-                 },
-                 success: function(conn, response, options, eOpts) {
-                 console.log('success');
-                 var text = conn.responseText;
-                 var obj = Ext.decode(text);
-                 console.log('conn = ',conn.responseText);
-                 console.log('obj = ',obj);
-                 if (obj.data.length>0) {
-                 currentView.setData({
-                 a:text
-                 });
-                 currentView.down('#matId').setValue(obj.data[0].matId);
-                 currentView.down('#sampleLotNo').setValue(obj.data[0].sampleLotNo);
-                 currentView.down('#createdDt').setValue(obj.data[0].createdDt);
-                 currentView.down('#sampleStatus').setValue(obj.data[0].sampleStatus);
-                 currentView.down('#sid').setValue(obj.data[0].sid);
-                 } else {
-                 if (Ext.os.is('Android')) {
-                 notice('没有匹配的结果！',null,'错误','确定');
-                 } else {
-                 Ext.Msg.alert('错误','没有匹配的结果！',Ext.emptyFn);
-                 }
-                 }
+                var str = batchId.split(',');
+                item.down('#batchId').setValue(str[0].slice(4));
+                item.down('#matNr').setValue(str[1].slice(5));
+                Ext.Ajax.request({
+                    url:rootUrl+'/pd/standard-weight/findWeight.action',
+                    method:'POST',
+                    params: {
+                        matNr : item.down("#matNr").getValue()
+                    },
+                    success: function(conn, response, options, eOpts) {
+                        Ext.Viewport.setMasked(false);
+                        var result = Ext.decode(conn.responseText);
+                        if (result.meta.success) {
+                            item.down('#matDesc').setValue(result.data.matDesc);
+                            item.down('#weight').setValue(result.data.standardWeight);
+                        } else {
+                            Ext.Msg.alert('提示','未查询到相关物料信息！');
+                        }
+                    },
+                    failure: function(conn, response, options, eOpts) {
+                        Ext.Viewport.setMasked(false);
+                        Ext.Msg.alert('错误','网络连接异常，请重新扫码识别！');
 
-                 },
-                 failure: function(conn, response, options, eOpts) {
-                 if (Ext.os.is('Android')) {
-                 notice('连接异常！',null,'错误','确定');
-                 } else {
-                 Ext.Msg.alert('错误','连接异常！',Ext.emptyFn);
-                 }
-                 }
-                 });*/
-
-                item.down('#batchId').setValue(batchId.slice(4,14));
-                item.down('#matNr').setValue(batchId.slice(20,28));
-                item.down('#weight').setValue(batchId.slice(43,48));
-
-                /*var str = '{'+batchId+'}';
-                var jsonStr = Ext.decode(str);
-                item.down('#batchId').setValue(jsonStr.a);
-                item.down('#matNr').setValue(jsonStr.b);
-                item.down('#weight').setValue(jsonStr.c);*/
-
-                Ext.Viewport.setMasked(false);
+                        item.down('#batchId').setValue('');
+                        item.down('#matNr').setValue('');
+                        item.down('#matDesc').setValue('');
+                        item.down('#weight').setValue('');
+                    }
+                })
             }
-        }else{
+        }else {
             item.down('#batchId').setValue('');
             item.down('#matNr').setValue('');
+            item.down('#matDesc').setValue('');
             item.down('#weight').setValue('');
         }
     },
@@ -470,10 +469,33 @@ Ext.define('app.view.FuCaiOutStoreView', {
      */
     onOutStoreTap: function(button, e, eOpts) {
         var item = button.up('#fuCaiOutStoreView');
+        var batchId= item.down('#batchId').getValue();
+        var matNr= item.down('#matNr').getValue();
+        var matDesc= item.down('#matDesc').getValue();
+        var costCenterCode= item.down('#costCenterCode').getValue();
         var weight = item.down('#weight').getValue();
         var number = item.down('#number').getValue();
         var reg = /^[0-9]+(.[0-9]{1,3})?$/;
-        var number = item.down('#number').getValue();
+        if(batchId == null || batchId == ''){
+            Ext.Msg.alert('提示','批次号不能为空！');
+            return;
+        }
+        if(matNr == null || matNr == ''){
+            Ext.Msg.alert('提示','物料编码不能为空！');
+            return;
+        }
+        if(weight == null || weight == ''){
+            Ext.Msg.alert('提示','标准重量不能为空！');
+            return;
+        }
+        if(costCenterCode == null || costCenterCode == ''){
+            Ext.Msg.alert('提示','成本中心不能为空！');
+            return;
+        }
+        if(number == null || number == ''){
+            Ext.Msg.alert('提示','出库量不能为空！');
+            return;
+        }
         if(!reg.test(number)){
             Ext.Msg.alert('提示','输入格式类型有误！');
         }else{
@@ -483,28 +505,30 @@ Ext.define('app.view.FuCaiOutStoreView', {
                 message: '请稍候......'
             });
             var obj = {};
-            obj.batchId= item.down('#batchId').getValue();
-            obj.matNr= item.down('#matNr').getValue();
-            obj.costCenterCode= item.down('#costCenterCode').getValue();
-            obj.weight = weight / 10 * number;
+            obj.batchId= batchId;
+            obj.matNr= matNr;
+            obj.matDesc= matDesc;
+            obj.weight = weight * number;
+            obj.costCenterCode= costCenterCode;
             var str = Ext.encode(obj);
             Ext.Ajax.request({
                 url: rootUrl+'/mat/stock-record/outStore.action',
                 method: 'POST',
                 jsonData : str,
                 success: function(conn, response, options, eOpts) {
+                    Ext.Viewport.setMasked(false);
                     var result = Ext.JSON.decode(conn.responseText);
                     if (result.meta.success) {
-                        Ext.Viewport.setMasked(false);
                         Ext.Msg.alert('提示','出库成功！');
+
+                        item.down('#batchId').setValue('');
+                        item.down('#matNr').setValue('');
+                        item.down('#matDesc').setValue('');
+                        item.down('#weight').setValue('');
+                        item.down('#number').setValue('');
                     }else{
-                        Ext.Viewport.setMasked(false);
                         Ext.Msg.alert('提示', "出库失败:" + result.meta.message);
                     }
-                    item.down('#batchId').setValue('');
-                    item.down('#matNr').setValue('');
-                    item.down('#weight').setValue('');
-                    item.down('#number').setValue('');
                 },
                 failure: function(conn, response, options, eOpts) {
                     Ext.Viewport.setMasked(false);
@@ -524,6 +548,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
         var item = button.up('#fuCaiOutStoreView');
         item.down('#batchId').setValue('');
         item.down('#matNr').setValue('');
+        item.down('#matDesc').setValue('');
         item.down('#weight').setValue('');
         item.down('#number').setValue('');
     },
