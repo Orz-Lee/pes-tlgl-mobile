@@ -224,8 +224,8 @@ Ext.define('app.view.LoginView', {
             'label':'锌锭出库','RES_ID':'SL-MOBILE-03'});
         nemuStore.add({'image':'resources/images/rc_icon.png',
             'label':'锌锭转库','RES_ID':'SL-MOBILE-04'});
-        nemuStore.add({'image':'resources/images/pd_icon.png',
-            'label':'二维码生成','RES_ID':'SL-MOBILE-08'});
+        //nemuStore.add({'image':'resources/images/pd_icon.png',
+        //    'label':'二维码生成','RES_ID':'SL-MOBILE-08'});
         root.push(menuView);
         Ext.Viewport.setMasked(false);
         return;*/
@@ -272,8 +272,6 @@ Ext.define('app.view.LoginView', {
                             'label':'锌锭出库','RES_ID':'SL-MOBILE-03'});
                         nemuStore.add({'image':'resources/images/rc_icon.png',
                             'label':'锌锭转库','RES_ID':'SL-MOBILE-04'});
-                        /*nemuStore.add({'image':'resources/images/pd_icon.png',
-                            'label':'二维码生成','RES_ID':'SL-MOBILE-08'});*/
 
                         //获取用户组织信息
                         Ext.Ajax.request({
@@ -288,15 +286,14 @@ Ext.define('app.view.LoginView', {
                                 authTable:'COST_CENTER_CODE'
                             },
                             success: function(conn, response, options, eOpts) {
+                                Ext.Viewport.setMasked(false);
                                 var result = me.decodeJSON(conn.responseText);
                                 if (result && result.items && result.items.length > 0) {
                                     var costStore = Ext.getStore('CostDataViewStore');
                                     costStore.setData(result.items);
-                                    Ext.Viewport.setMasked(false);
                                     root.push(menuView);
                                 } else {
                                     //返回失败
-                                    Ext.Viewport.setMasked(false);
                                     Ext.Msg.alert("提示","成本中心信息获取失败！");
                                 }
                             },

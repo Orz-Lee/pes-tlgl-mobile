@@ -136,7 +136,7 @@ Ext.define('app.view.MenuView', {
             },
             failure: function(conn, response, options, eOpts) {
                 Ext.Viewport.setMasked(false);
-                Ext.Msg.alert('提示','注销成功！');
+                //Ext.Msg.alert('提示','注销成功！');
                 //Ext.Msg.alert('错误信息','网络中断或无连接.');
             }
         });
@@ -154,7 +154,6 @@ Ext.define('app.view.MenuView', {
         var root = dataview.up('#root');
         var root = Ext.getCmp('rootView');
         var slide = Ext.create("Ext.fx.layout.card.Slide",{direction:"left"});
-        //console.log('label = '+label);
         var targetView;
 
         setTimeout(function(){
@@ -182,10 +181,10 @@ Ext.define('app.view.MenuView', {
                 targetView = Ext.create('app.view.XinDingInStoreView');
                 root.push(targetView);
             }
-            else if ('SL-MOBILE-08' ===label) {
+            /*else if ('SL-MOBILE-08' ===label) {
                 targetView = Ext.create('app.view.StoreCheck');
                 root.push(targetView);
-            }
+            }*/
             Ext.Viewport.setMasked(false);
         },500);
 

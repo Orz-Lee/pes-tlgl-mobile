@@ -151,6 +151,13 @@ Ext.define('app.view.FuCaiTurnStoreView', {
                                         cls: 'small_textfield_cls',
                                         itemId: 'batchId',
                                         inputCls: 'white_select_input'
+                                    },
+                                    {
+                                        xtype: 'textfield',
+                                        cls: 'small_textfield_cls',
+                                        itemId: 'scanInfo',
+                                        inputCls: 'white_select_input',
+                                        hidden: true
                                     }
                                 ]
                             }
@@ -418,6 +425,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
         var item = textfield.up('#fuCaiTurnStoreView');
         var batchId = item.down("#batchId").getValue();
         var matNr = item.down("#matNr").getValue();
+        item.down('#scanInfo').setValue(batchId);
         if (batchId!==''&&batchId!==null&&batchId!==undefined) {
             if(batchId!==''&&matNr==''){
                 Ext.Viewport.setMasked({
@@ -429,7 +437,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
                 item.down('#batchId').setValue(str[0].slice(4));
                 item.down('#matNr').setValue(str[1].slice(5));
                 Ext.Ajax.request({
-                    url:rootUrl+'/pd/standard-weight/findWeight.action',
+                    url:rootUrl+'/pd/standard-weight/findByMatNr.action',
                     method:'POST',
                     params: {
                         matNr : item.down("#matNr").getValue()
@@ -477,6 +485,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
         var weight = item.down('#weight').getValue();
         var cost1 = item.down('#costCenterCode').getValue();
         var cost2 = item.down('#turnCostCenterCode').getValue();
+        var scanInfo = item.down('#scanInfo').getValue();
         if(batchId == null || batchId == ''){
             Ext.Msg.alert('提示','批次号不能为空！');
             return;
@@ -509,12 +518,15 @@ Ext.define('app.view.FuCaiTurnStoreView', {
         var obj = {};
         obj.batchId= batchId;
         obj.matNr= matNr;
+        obj.matDesc= matDesc;
         obj.weight= weight;
         obj.costCenterCode= cost1;
-        obj.costCenterOutCode= cost2;
+        obj.turnCostCenterCode= cost2;
+        obj.operateFlag= 3;
+        obj.scanInfo= scanInfo;
         var str = Ext.encode(obj);
         Ext.Ajax.request({
-            url:rootUrl+'/mat/stock-record/turnStore.action',
+            url:rootUrl+'/mat/stock-record/doForApp.action',//turnStore.action',
             method:'POST',
             jsonData : str,
             success: function(conn, response, options, eOpts) {
@@ -550,6 +562,7 @@ Ext.define('app.view.FuCaiTurnStoreView', {
         var item = button.up('#fuCaiTurnStoreView');
         item.down('#batchId').setValue('');
         item.down('#matNr').setValue('');
+        item.down('#matDesc').setValue('');
         item.down('#matDesc').setValue('');
         item.down('#weight').setValue('');
     },

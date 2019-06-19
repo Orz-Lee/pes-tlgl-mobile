@@ -121,320 +121,6 @@ Ext.define('app.view.XinDingInStoreView', {
                     align: 'center'
                 },
                 items: [
-                    /*{
-                        xtype: 'container',
-                        height: 36,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '企业代码',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: [
-                                    'light_blue_border',
-                                    'margin_content'
-                                ],
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'enterpriseCode',
-                                        inputCls: 'white_select_input'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '产品类别代码',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'productTypeCode',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '产品品级代码',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'productLevleCode',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '生产日期代码',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'produceDateCode',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 50,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '产品唯一序号',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'productUniqueCode',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '捆净重代码信息',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'netWeightCode',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '物料编码',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'matNr',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '净重信息(KG)',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: 'margin_content',
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'textfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'weight',
-                                        clearIcon: false,
-                                        inputCls: 'color_select_input',
-                                        readOnly: true
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        height: 36,
-                        //hidden : true,
-                        margin: '2 0',
-                        width: '100%',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'container',
-                                cls: 'blue_font',
-                                html: '成本中心',
-                                width: 120
-                            },
-                            {
-                                xtype: 'container',
-                                flex: 1,
-                                cls: [
-                                    'light_blue_border',
-                                    'margin_content'
-                                ],
-                                height: '100%',
-                                items: [
-                                    {
-                                        xtype: 'selectfield',
-                                        cls: 'small_textfield_cls',
-                                        itemId: 'costCenterCode',
-                                        inputCls: 'white_select_input',
-                                        //readOnly: true,
-                                        placeHolder: '请选择成本中心！',
-                                        autoSelect: false,
-                                        displayField: 'key',
-                                        store: 'CostDataViewStore',
-                                        valueField: 'value'
-                                    }
-                                ]
-                            }
-                        ]
-                    },*/
                     {
                         xtype: 'container',
                         height: 36,
@@ -463,8 +149,15 @@ Ext.define('app.view.XinDingInStoreView', {
                                     {
                                         xtype: 'textfield',
                                         cls: 'small_textfield_cls',
-                                        itemId: 'grade',
+                                        itemId: 'brand',
                                         inputCls: 'white_select_input'
+                                    },
+                                    {
+                                        xtype: 'textfield',
+                                        cls: 'small_textfield_cls',
+                                        itemId: 'scanInfo',
+                                        inputCls: 'white_select_input',
+                                        hidden: true
                                     }
                                 ]
                             }
@@ -667,9 +360,9 @@ Ext.define('app.view.XinDingInStoreView', {
                 event: 'hide'
             },
             {
-                fn:'onGradeBlur',
+                fn:'onBrandBlur',
                 event:'blur',
-                delegate:'#grade'
+                delegate:'#brand'
             }
         ]
     },
@@ -677,7 +370,7 @@ Ext.define('app.view.XinDingInStoreView', {
     initialize: function(){
         setTimeout(function(){
             var view = Ext.getCmp('xinDingInStoreView');
-            view.down('#grade').focus();
+            view.down('#brand').focus();
         },500)
     },
 
@@ -687,30 +380,110 @@ Ext.define('app.view.XinDingInStoreView', {
      * @param e
      * @param eOpts
      */
-    onGradeBlur: function (textfield, e, eOpts) {
+    onBrandBlur: function (textfield, e, eOpts) {
         var item = textfield.up('#xinDingInStoreView');
-        var grade = item.down('#grade').getValue();
-        if(grade.length == 0){
-            item.down('#grade').setValue();
+        var brand = item.down('#brand').getValue();
+        item.down('#scanInfo').setValue(brand);
+        if(brand.length == 0) {
+            item.down('#brand').setValue();
+            item.down('#weight').setValue();
+            item.down('#matNr').setValue();
+            item.down('#matDesc').setValue();
+        } else {
+            Ext.Viewport.setMasked({
+                xtype: 'loadmask',
+                fullscreen:true,
+                message: '请稍候......'
+            });
+            Ext.Ajax.request({
+                url:rootUrl+'/qr/xdRulesInfo/check.action',
+                method:'POST',
+                params: {
+                    scanInfo : brand
+                },
+                success: function(conn, response, options, eOpts) {
+                    var result = Ext.decode(conn.responseText);
+                    if(result.meta.success){
+                        item.down('#brand').setValue(result.data.brand);
+                        item.down('#weight').setValue(result.data.weight);
+                        Ext.Ajax.request({
+                            url:rootUrl+'/md/confMatXinding/findByBrand.action',
+                            method:'POST',
+                            params: {
+                                brand : item.down('#brand').getValue().toUpperCase()
+                            },
+                            success: function(conn, response, options, eOpts) {
+                                Ext.Viewport.setMasked(false);
+                                var result = Ext.decode(conn.responseText);
+                                if(result.meta.success){
+                                    item.down('#matNr').setValue(result.data.matNr);
+                                    item.down('#matDesc').setValue(result.data.matDesc);
+                                }else{
+                                    Ext.Msg.alert('提示','未查询到相关物料信息！');
+                                }
+                            },
+                            failure: function(conn, response, options, eOpts) {
+                                Ext.Viewport.setMasked(false);
+                                Ext.Msg.alert('错误','网络异常！');
+
+                                item.down('#brand').setValue();
+                                item.down('#weight').setValue();
+                                item.down('#matNr').setValue();
+                                item.down('#matDesc').setValue();
+                            }
+                        });
+                    }else{
+                        Ext.Viewport.setMasked(false);
+                        Ext.Msg.alert('提示',result.meta.message);
+
+                        item.down('#brand').setValue();
+                        item.down('#weight').setValue();
+                        item.down('#matNr').setValue();
+                        item.down('#matDesc').setValue();
+                    }
+                },
+                failure: function(conn, response, options, eOpts) {
+                    Ext.Viewport.setMasked(false);
+                    Ext.Msg.alert('错误','网络异常！');
+
+                    item.down('#brand').setValue();
+                    item.down('#weight').setValue();
+                    item.down('#matNr').setValue();
+                    item.down('#matDesc').setValue();
+                }
+            });
+        }
+
+        /*if(brand.length == 0){
+            item.down('#brand').setValue();
             item.down('#weight').setValue();
             item.down('#matNr').setValue();
             item.down('#matDesc').setValue();
             return;
-        }else if(grade.length < 50){
+        }else if(brand.length < 50){
             Ext.Msg.alert('提示', "识别失败，请重新扫描！");
-            item.down('#grade').setValue('');
+            item.down('#brand').setValue();
+            item.down('#weight').setValue();
+            item.down('#matNr').setValue();
+            item.down('#matDesc').setValue();
             return ;
-        }else if(grade.length < 80){
-            var str = grade.split(',');
-            item.down('#grade').setValue(str[1].slice(0,5));
+        }else if(brand.length < 80){
+            var str = brand.split(',');
+            item.down('#brand').setValue(str[1].slice(0,5));
             item.down('#weight').setValue(str[5].slice(0));
         }else{
-            var str = grade.split('、');
+            var str = brand.split(' ');
+            Ext.Msg.alert('提示',str[3]);
+            item.down('#brand').setValue(str[2].slice(3));
+            item.down('#weight').setValue(str[3].slice(3,6));
+            return;
+
+            var str = brand.split('、');
             if(str[0].length > 12){
-                item.down('#grade').setValue(str[0].slice(3,10));
+                item.down('#brand').setValue(str[0].slice(3,10));
                 item.down('#weight').setValue(str[2].slice(3));
             }else{
-                item.down('#grade').setValue(str[0].slice(3));
+                item.down('#brand').setValue(str[0].slice(3));
                 item.down('#weight').setValue(str[2].slice(3));
             }
         }
@@ -720,10 +493,10 @@ Ext.define('app.view.XinDingInStoreView', {
             message: '请稍候......'
         });
         Ext.Ajax.request({
-            url:rootUrl+'/md/confMatXinding/find.action',
+            url:rootUrl+'/md/confMatXinding/findByBrand.action',
             method:'POST',
             params: {
-                'qm.grade' : item.down('#grade').getValue()
+                brand : item.down('#brand').getValue().toUpperCase()
             },
             success: function(conn, response, options, eOpts) {
                 Ext.Viewport.setMasked(false);
@@ -740,12 +513,13 @@ Ext.define('app.view.XinDingInStoreView', {
                 Ext.Viewport.setMasked(false);
                 Ext.Msg.alert('错误','网络异常，请重新识别！');
 
-                item.down('#grade').setValue();
+                item.down('#brand').setValue();
                 item.down('#weight').setValue();
                 item.down('#matNr').setValue();
                 item.down('#matDesc').setValue();
             }
-        });
+        });*/
+
     },
 
     /**
@@ -756,12 +530,13 @@ Ext.define('app.view.XinDingInStoreView', {
      */
     onInStoreTap: function(button, e, eOpts) {
         var item = button.up('#xinDingInStoreView');
-        var grade = item.down('#grade').getValue();
+        var brand = item.down('#brand').getValue();
         var matNr = item.down('#matNr').getValue();
         var matDesc = item.down('#matDesc').getValue();
         var weight = item.down('#weight').getValue();
         var costCenterCode = item.down('#costCenterCode').getValue();
-        if(grade == null || grade == ''){
+        var scanInfo = item.down('#scanInfo').getValue();
+        if(brand == null || brand == ''){
             Ext.Msg.alert('提示','牌号不能为空！');
             return;
         }
@@ -787,9 +562,11 @@ Ext.define('app.view.XinDingInStoreView', {
         obj.matDesc = matDesc;
         obj.weight = weight;
         obj.costCenterCode = costCenterCode;
+        obj.operateFlag= 1;
+        obj.scanInfo= scanInfo;
         var str = Ext.encode(obj);
         Ext.Ajax.request({
-            url: rootUrl+'/mat/stock-record/inStore.action',
+            url: rootUrl+'/mat/stock-record/doForApp.action',//inStore.action',
             method: 'POST',
             jsonData : str,
             success: function(conn, response, options, eOpts) {
@@ -797,7 +574,8 @@ Ext.define('app.view.XinDingInStoreView', {
                 var result = Ext.JSON.decode(conn.responseText);
                 if (result.meta.success) {
                     Ext.Msg.alert('提示','入库成功！');
-                    item.down('#grade').setValue();
+
+                    item.down('#brand').setValue();
                     item.down('#weight').setValue();
                     item.down('#matNr').setValue();
                     item.down('#matDesc').setValue();
@@ -820,7 +598,7 @@ Ext.define('app.view.XinDingInStoreView', {
      */
     onClearBtnTap: function(button, e, eOpts) {
         var item = button.up('#xinDingInStoreView');
-        item.down('#grade').setValue();
+        item.down('#brand').setValue();
         item.down('#weight').setValue();
         item.down('#matNr').setValue();
         item.down('#matDesc').setValue();

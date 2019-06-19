@@ -150,6 +150,13 @@ Ext.define('app.view.FuCaiOutStoreView', {
                                         cls: 'small_textfield_cls',
                                         itemId: 'batchId',
                                         inputCls: 'white_select_input'
+                                    },
+                                    {
+                                        xtype: 'textfield',
+                                        cls: 'small_textfield_cls',
+                                        itemId: 'scanInfo',
+                                        inputCls: 'white_select_input',
+                                        hidden: true
                                     }
                                 ]
                             }
@@ -416,6 +423,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
         var item = textfield.up('#fuCaiOutStoreView');
         var batchId = item.down("#batchId").getValue();
         var matNr = item.down("#matNr").getValue();
+        item.down('#scanInfo').setValue(batchId);
         if (batchId!==''&&batchId!==null&&batchId!==undefined) {
             if(batchId!==''&&matNr==''){
                 Ext.Viewport.setMasked({
@@ -427,7 +435,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
                 item.down('#batchId').setValue(str[0].slice(4));
                 item.down('#matNr').setValue(str[1].slice(5));
                 Ext.Ajax.request({
-                    url:rootUrl+'/pd/standard-weight/findWeight.action',
+                    url:rootUrl+'/pd/standard-weight/findByMatNr.action',
                     method:'POST',
                     params: {
                         matNr : item.down("#matNr").getValue()
@@ -473,6 +481,7 @@ Ext.define('app.view.FuCaiOutStoreView', {
         var matNr= item.down('#matNr').getValue();
         var matDesc= item.down('#matDesc').getValue();
         var costCenterCode= item.down('#costCenterCode').getValue();
+        var scanInfo = item.down('#scanInfo').getValue();
         var weight = item.down('#weight').getValue();
         var number = item.down('#number').getValue();
         var reg = /^[0-9]+(.[0-9]{1,3})?$/;
@@ -510,9 +519,11 @@ Ext.define('app.view.FuCaiOutStoreView', {
             obj.matDesc= matDesc;
             obj.weight = weight * number;
             obj.costCenterCode= costCenterCode;
+            obj.operateFlag= 2;
+            obj.scanInfo= scanInfo;
             var str = Ext.encode(obj);
             Ext.Ajax.request({
-                url: rootUrl+'/mat/stock-record/outStore.action',
+                url: rootUrl+'/mat/stock-record/doForApp.action',//outStore.action',
                 method: 'POST',
                 jsonData : str,
                 success: function(conn, response, options, eOpts) {
