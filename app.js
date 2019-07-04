@@ -30,15 +30,15 @@ Ext.application({
     ],
 
     launch: function() {
-        /*var url = '10.99.243.88';
+        /*var url = '10.99.243.187';
         var port = '8080';
-        var serverName = 'pes-tlgl-app';
+        var serverName = 'pes-tlgl-app-01';
         rootUrl = 'http://'+url+':'+port+'/'+serverName;*/
-        //rootUrl = 'http://60.2.15.147:9001';
-        rootUrl = 'http://192.168.1.54:9001';
+        rootUrl = 'http://60.2.15.147:9001';
+        //rootUrl = 'http://192.168.1.54:9001';
+        rootVersion = 'v0.0.1';
         root = Ext.create('app.view.RootNavigationView');
         root.push(Ext.create('app.view.LoginView'));
         Ext.Viewport.add(root);
-
     }
 });

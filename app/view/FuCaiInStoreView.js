@@ -392,34 +392,40 @@ Ext.define('app.view.FuCaiInStoreView', {
                     message: '请稍候......'
                 });
                 var str = batchId.split(',');
-                item.down('#batchId').setValue(str[0].slice(4));
-                item.down('#matNr').setValue(str[1].slice(5));
-                Ext.Ajax.request({
-                    url:rootUrl+'/pd/standard-weight/findByMatNr.action',
-                    method:'POST',
-                    params: {
-                        matNr : item.down("#matNr").getValue()
-                    },
-                    success: function(conn, response, options, eOpts) {
-                        Ext.Viewport.setMasked(false);
-                        var result = Ext.decode(conn.responseText);
-                        if (result.meta.success) {
-                            item.down('#matDesc').setValue(result.data.matDesc);
-                            item.down('#weight').setValue(result.data.standardWeight);
-                        } else {
-                            Ext.Msg.alert('提示','未查询到相关物料信息！');
-                        }
-                    },
-                    failure: function(conn, response, options, eOpts) {
-                        Ext.Viewport.setMasked(false);
-                        Ext.Msg.alert('错误','网络连接异常，请重新扫码识别！');
+                if(str.length != 4){
+                    Ext.Viewport.setMasked(false);
+                    item.down('#batchId').setValue("");
+                    Ext.Msg.alert('提示','未查询到相关物料信息！');
+                }else{
+                    item.down('#batchId').setValue(str[0].slice(4));
+                    item.down('#matNr').setValue(str[1].slice(5));
+                    Ext.Ajax.request({
+                        url:rootUrl+'/pd/standard-weight/findByMatNr.action',
+                        method:'POST',
+                        params: {
+                            matNr : item.down("#matNr").getValue()
+                        },
+                        success: function(conn, response, options, eOpts) {
+                            Ext.Viewport.setMasked(false);
+                            var result = Ext.decode(conn.responseText);
+                            if (result.meta.success) {
+                                item.down('#matDesc').setValue(result.data.matDesc);
+                                item.down('#weight').setValue(result.data.standardWeight);
+                            } else {
+                                Ext.Msg.alert('提示','未查询到相关物料信息！');
+                            }
+                        },
+                        failure: function(conn, response, options, eOpts) {
+                            Ext.Viewport.setMasked(false);
+                            Ext.Msg.alert('错误','网络连接异常，请重新扫码识别！');
 
-                        item.down('#batchId').setValue('');
-                        item.down('#matNr').setValue('');
-                        item.down('#matDesc').setValue('');
-                        item.down('#weight').setValue('');
-                    }
-                })
+                            item.down('#batchId').setValue('');
+                            item.down('#matNr').setValue('');
+                            item.down('#matDesc').setValue('');
+                            item.down('#weight').setValue('');
+                        }
+                    })
+                }
             }
         }else {
             item.down('#batchId').setValue('');
@@ -468,13 +474,13 @@ Ext.define('app.view.FuCaiInStoreView', {
         obj.batchId= batchId;
         obj.matNr= matNr;
         obj.matDesc= matDesc;
-        obj.weight = weight;
+        obj.weight = weight / 1000;
         obj.costCenterCode= costCenterCode;
         obj.operateFlag= 1;
         obj.scanInfo= scanInfo;
         var str = Ext.encode(obj);
         Ext.Ajax.request({
-            url: rootUrl+'/mat/stock-record/doForApp.action',//inStore.action',
+            url: rootUrl+'/mat/stock-record/doFcForApp.action',//inStore.action',
             method: 'POST',
             jsonData : str,
             success: function(conn, response, options, eOpts) {
@@ -493,7 +499,7 @@ Ext.define('app.view.FuCaiInStoreView', {
             },
             failure: function(conn, response, options, eOpts) {
                 Ext.Viewport.setMasked(false);
-                Ext.Msg.alert('错误信息','网络连接异常.');
+                Ext.Msg.alert('错误信息','网络中断或无连接.');
             }
         });
     },

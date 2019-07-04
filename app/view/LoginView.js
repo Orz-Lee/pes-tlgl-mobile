@@ -61,7 +61,7 @@ Ext.define('app.view.LoginView', {
                             {
                                 xtype: 'textfield',
                                 itemId: 'userName'
-                                ,value:'tltest'
+                                //,value:'tltest'
                             }
                         ]
                     },
@@ -82,7 +82,7 @@ Ext.define('app.view.LoginView', {
                             {
                                 xtype: 'passwordfield',
                                 itemId: 'passWord'
-                                ,value:'123abc'
+                                //,value:'123abc'
                             }
                         ]
                     },
@@ -251,57 +251,63 @@ Ext.define('app.view.LoginView', {
                 success: function(conn, response, options, eOpts) {
                     var result = me.decodeJSON(conn.responseText);
                     if (result.meta.success) {
-                        //设置Ajax头
-                        Ext.Ajax.setDefaultHeaders({
-                            'Authorization': result.data.token,
-                            'X-Username': result.data.username
-                        });
-                        var menuView = Ext.create('app.view.MenuView');
-                        var root = Ext.getCmp('rootView');
-                        var nemuStore = Ext.getStore('MenuDataViewStore');
-                        nemuStore.removeAll();
-                        nemuStore.add({'image':'resources/images/hd_icon.png',
-                            'label':'辅材入库','RES_ID':'SL-MOBILE-00'});
-                        nemuStore.add({'image':'resources/images/ck_icon.png',
-                            'label':'辅材出库','RES_ID':'SL-MOBILE-01'});
-                        nemuStore.add({'image':'resources/images/rc_icon.png',
-                            'label':'辅材转库','RES_ID':'SL-MOBILE-02'});
-                        nemuStore.add({'image':'resources/images/hd_icon.png',
-                            'label':'锌锭入库','RES_ID':'SL-MOBILE-05'});
-                        nemuStore.add({'image':'resources/images/ck_icon.png',
-                            'label':'锌锭出库','RES_ID':'SL-MOBILE-03'});
-                        nemuStore.add({'image':'resources/images/rc_icon.png',
-                            'label':'锌锭转库','RES_ID':'SL-MOBILE-04'});
-
-                        //获取用户组织信息
                         Ext.Ajax.request({
-                            url: rootUrl + '/combo/combo/findComboBoxValue.action',
+                            url: rootUrl + '/mat/stock-record/findAppVersion.action',
                             params: {
-                                tableName:'VIEW_MD_ORG_STRUCTURE_INFO',
-                                displayField:'COST_CENTER_DESC',
-                                valueField:'COST_CENTER_CODE',
-                                orderField:'COST_ORDER',
-                                keyword:'DISTINCT',
-                                authField:'tlglCost',
-                                authTable:'COST_CENTER_CODE'
+                                version: rootVersion
                             },
                             success: function(conn, response, options, eOpts) {
-                                Ext.Viewport.setMasked(false);
                                 var result = me.decodeJSON(conn.responseText);
-                                if (result && result.items && result.items.length > 0) {
-                                    var costStore = Ext.getStore('CostDataViewStore');
-                                    costStore.setData(result.items);
-                                    root.push(menuView);
-                                } else {
-                                    //返回失败
-                                    Ext.Msg.alert("提示","成本中心信息获取失败！");
+                                if (result.meta.success) {
+                                    var menuView = Ext.create('app.view.MenuView');
+                                    var root = Ext.getCmp('rootView');
+                                    var nemuStore = Ext.getStore('MenuDataViewStore');
+                                    nemuStore.removeAll();
+                                    nemuStore.add({'image':'resources/images/hd_icon.png', 'label':'辅材入库','RES_ID':'SL-MOBILE-00'});
+                                    nemuStore.add({'image':'resources/images/ck_icon.png', 'label':'辅材出库','RES_ID':'SL-MOBILE-01'});
+                                    nemuStore.add({'image':'resources/images/rc_icon.png', 'label':'辅材转库','RES_ID':'SL-MOBILE-02'});
+                                    nemuStore.add({'image':'resources/images/hd_icon.png', 'label':'锌锭入库','RES_ID':'SL-MOBILE-05'});
+                                    nemuStore.add({'image':'resources/images/ck_icon.png', 'label':'锌锭出库','RES_ID':'SL-MOBILE-03'});
+                                    nemuStore.add({'image':'resources/images/rc_icon.png', 'label':'锌锭转库','RES_ID':'SL-MOBILE-04'});
+                                    //获取用户组织信息
+                                    Ext.Ajax.request({
+                                        url: rootUrl + '/combo/combo/findComboBoxValue.action',
+                                        params: {
+                                            tableName:'VIEW_MD_ORG_STRUCTURE_INFO',
+                                            displayField:'COST_CENTER_DESC',
+                                            valueField:'COST_CENTER_CODE',
+                                            orderField:'COST_ORDER',
+                                            keyword:'DISTINCT',
+                                            authField:'tlglCost',
+                                            authTable:'COST_CENTER_CODE'
+                                        },
+                                        success: function(conn, response, options, eOpts) {
+                                            Ext.Viewport.setMasked(false);
+                                            var result = me.decodeJSON(conn.responseText);
+                                            if (result && result.items && result.items.length > 0) {
+                                                var costStore = Ext.getStore('CostDataViewStore');
+                                                costStore.setData(result.items);
+                                                root.push(menuView);
+                                            } else {
+                                                //返回失败
+                                                Ext.Msg.alert("提示","成本中心信息获取失败！");
+                                            }
+                                        },
+                                        failure: function(conn, response, options, eOpts) {
+                                            Ext.Viewport.setMasked(false);
+                                            Ext.Msg.alert("提示","网络异常，请重新登录.");
+                                        }
+                                    });
+                                }else{
+                                    Ext.Viewport.setMasked(false);
+                                    Ext.Msg.alert('提示', result.meta.message);
                                 }
                             },
                             failure: function(conn, response, options, eOpts) {
                                 Ext.Viewport.setMasked(false);
-                                Ext.Msg.alert("提示","网络异常，请重新登录.");
+                                Ext.Msg.alert("提示","网络异常，请重新登录！");
                             }
-                        });
+                        })
                     } else {
                         //登陆失败
                         Ext.Viewport.setMasked(false);

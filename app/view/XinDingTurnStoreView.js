@@ -468,7 +468,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                             },
                             failure: function(conn, response, options, eOpts) {
                                 Ext.Viewport.setMasked(false);
-                                Ext.Msg.alert('错误','网络异常！');
+                                Ext.Msg.alert('错误','网络中断或无连接.');
 
                                 item.down('#brand').setValue();
                                 item.down('#weight').setValue();
@@ -488,7 +488,7 @@ Ext.define('app.view.XinDingTurnStoreView', {
                 },
                 failure: function(conn, response, options, eOpts) {
                     Ext.Viewport.setMasked(false);
-                    Ext.Msg.alert('错误','网络异常！');
+                    Ext.Msg.alert('错误','网络中断或无连接.');
 
                     item.down('#brand').setValue();
                     item.down('#weight').setValue();
@@ -497,63 +497,6 @@ Ext.define('app.view.XinDingTurnStoreView', {
                 }
             });
         }
-
-        /*if(brand.length == 0){
-            item.down('#brand').setValue();
-            item.down('#weight').setValue();
-            item.down('#matNr').setValue();
-            item.down('#matDesc').setValue();
-            return;
-        }else if(brand.length < 50){
-            Ext.Msg.alert('提示', "识别失败，请重新扫描！");
-            item.down('#brand').setValue('');
-            return ;
-        }else if(brand.length < 80){
-            var str = brand.split(',');
-            item.down('#brand').setValue(str[1].slice(0,5));
-            item.down('#weight').setValue(str[5].slice(0));
-        }else{
-            var str = brand.split('、');
-            if(str[0].length > 12){
-                item.down('#brand').setValue(str[0].slice(3,10));
-                item.down('#weight').setValue(str[2].slice(3));
-            }else{
-                item.down('#brand').setValue(str[0].slice(3));
-                item.down('#weight').setValue(str[2].slice(3));
-            }
-        }
-        Ext.Viewport.setMasked({
-            xtype: 'loadmask',
-            fullscreen:true,
-            message: '请稍候......'
-        });
-        Ext.Ajax.request({
-            url:rootUrl+'/md/confMatXinding/findByBrand.action',
-            method:'POST',
-            params: {
-                brand : item.down('#brand').getValue().toUpperCase()
-            },
-            success: function(conn, response, options, eOpts) {
-                Ext.Viewport.setMasked(false);
-                var result = Ext.decode(conn.responseText);
-                if(result.meta.success){
-                    item.down('#matNr').setValue(result.data.matNr);
-                    item.down('#matDesc').setValue(result.data.matDesc);
-                }else{
-                    Ext.Msg.alert('提示','未查询到相关物料信息！');
-                }
-            },
-            failure: function(conn, response, options, eOpts) {
-                Ext.Viewport.setMasked(false);
-                Ext.Msg.alert('错误','网络异常，请重新识别！');
-
-                item.down('#brand').setValue();
-                item.down('#weight').setValue();
-                item.down('#matNr').setValue();
-                item.down('#matDesc').setValue();
-            }
-        });*/
-
     },
 
     /**
@@ -603,14 +546,14 @@ Ext.define('app.view.XinDingTurnStoreView', {
         var obj = {};
         obj.matNr = matNr;
         obj.matDesc = matDesc;
-        obj.weight = weight;
+        obj.weight = weight / 1000;
         obj.costCenterCode = cost1;
         obj.turnCostCenterCode = cost2;
         obj.operateFlag= 3;
         obj.scanInfo= scanInfo;
         var str = Ext.encode(obj);
         Ext.Ajax.request({
-            url: rootUrl+'/mat/stock-record/doForApp.action',//turnStore.action',
+            url: rootUrl+'/mat/stock-record/doXdForApp.action',
             method: 'POST',
             jsonData : str,
             success: function(conn, response, options, eOpts) {
