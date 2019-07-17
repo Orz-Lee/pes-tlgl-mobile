@@ -321,5 +321,4 @@ Ext.define('app.view.LoginView', {
             });
         }
     }
-
 });
