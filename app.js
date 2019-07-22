@@ -30,13 +30,13 @@ Ext.application({
     ],
 
     launch: function() {
-        /*var url = '10.99.243.78';
+        var url = '10.99.243.39';
         var port = '8080';
-        var serverName = 'pes-tlgl-mobile';
-        rootUrl = 'http://'+url+':'+port+'/'+serverName;*/
-        rootUrl = 'http://60.2.15.147:9001';
+        var serverName = 'pes-tlgl-app';
+        rootUrl = 'http://'+url+':'+port+'/'+serverName;
+        //rootUrl = 'http://60.2.15.147:9001';
         //rootUrl = 'http://192.168.1.54:9001';
-        rootVersion = 'v1.0.0';
+        rootVersion = 'v1.0.1';
         root = Ext.create('app.view.RootNavigationView');
         root.push(Ext.create('app.view.LoginView'));
         Ext.Viewport.add(root);

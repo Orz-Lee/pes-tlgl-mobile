@@ -61,7 +61,6 @@ Ext.define('app.view.LoginView', {
                             {
                                 xtype: 'textfield',
                                 itemId: 'userName'
-                                //,value:'tltest'
                             }
                         ]
                     },
@@ -82,40 +81,6 @@ Ext.define('app.view.LoginView', {
                             {
                                 xtype: 'passwordfield',
                                 itemId: 'passWord'
-                                //,value:'123abc'
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'container',
-                        layout: {
-                            type: 'hbox',
-                            align: 'center',
-                            pack: 'center'
-                        },
-                        items: [
-                            {
-                                xtype: 'image',
-                                height: 20,
-                                width: 20,
-                                src: 'resources/images/time.png'
-                            },
-                            {
-                                xtype: 'selectfield',
-                                options: [
-                                    {
-                                        text: '白班',
-                                        value: 'first'
-                                    },
-                                    {
-                                        text: '中班',
-                                        value: 'second'
-                                    },
-                                    {
-                                        text: '晚班',
-                                        value: 'third'
-                                    }
-                                ]
                             }
                         ]
                     },
@@ -139,22 +104,59 @@ Ext.define('app.view.LoginView', {
                                 options: [
                                     {
                                         text: '甲班',
-                                        value: '1'
+                                        value: 'A'
                                     },
                                     {
                                         text: '乙班',
-                                        value: '2'
+                                        value: 'B'
                                     },
                                     {
                                         text: '丙班',
-                                        value: '3'
+                                        value: 'C'
                                     },
                                     {
                                         text: '丁班',
-                                        value: '4'
+                                        value: 'D'
                                     }
-                                ],
-                                usePicker: false
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        xtype: 'container',
+                        layout: {
+                            type: 'hbox',
+                            align: 'center',
+                            pack: 'center'
+                        },
+                        items: [
+                            {
+                                xtype: 'image',
+                                height: 20,
+                                width: 20,
+                                src: 'resources/images/time.png'
+                            },
+                            {
+                                xtype: 'selectfield',
+                                itemId: 'shiftSelect',
+                                options: [
+                                    {
+                                        text: '00:00-08:00',
+                                        value: '00-08'
+                                    },
+                                    {
+                                        text: '08:00-20:00',
+                                        value: '08-20'
+                                    },
+                                    {
+                                        text: '20:00-08:00',
+                                        value: '20-08'
+                                    },
+                                    {
+                                        text: '20:00-24:00',
+                                        value: '20-24'
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -213,13 +215,13 @@ Ext.define('app.view.LoginView', {
         var nemuStore = Ext.getStore('MenuDataViewStore');
         nemuStore.removeAll();
         nemuStore.add({'image':'resources/images/hd_icon.png',
-            'label':'辅材入库','RES_ID':'SL-MOBILE-00'});
+            'label':'辅材入库','RES_ID':'SL-MOBILE-000'});
         nemuStore.add({'image':'resources/images/ck_icon.png',
             'label':'辅材出库','RES_ID':'SL-MOBILE-01'});
         nemuStore.add({'image':'resources/images/rc_icon.png',
             'label':'辅材转库','RES_ID':'SL-MOBILE-02'});
         nemuStore.add({'image':'resources/images/hd_icon.png',
-            'label':'锌锭入库','RES_ID':'SL-MOBILE-05'});
+            'label':'锌锭入库','RES_ID':'SL-MOBILE-050'});
         nemuStore.add({'image':'resources/images/ck_icon.png',
             'label':'锌锭出库','RES_ID':'SL-MOBILE-03'});
         nemuStore.add({'image':'resources/images/rc_icon.png',
@@ -230,11 +232,13 @@ Ext.define('app.view.LoginView', {
         Ext.Viewport.setMasked(false);
         return;*/
 
+
         var me = this;
         var loginView = button.up('#loginView');
         var userName = loginView.down('#userName').getValue();
         var passWord = loginView.down('#passWord').getValue();
         var crewId = loginView.down('#crewSelect').getValue();
+        var shiftId = loginView.down('#shiftSelect').getValue();
         if (userName==''){
             Ext.Viewport.setMasked(false);
             Ext.Msg.alert('错误','用户名不能为空！');
@@ -246,7 +250,9 @@ Ext.define('app.view.LoginView', {
                 url:rootUrl+'/ac/login/mobileLogin.action',
                 params: {
                     username: userName,
-                    password: passWord
+                    password: passWord,
+                    crewId: crewId,
+                    shiftId: shiftId
                 },
                 success: function(conn, response, options, eOpts) {
                     var result = me.decodeJSON(conn.responseText);
@@ -263,10 +269,10 @@ Ext.define('app.view.LoginView', {
                                     var root = Ext.getCmp('rootView');
                                     var nemuStore = Ext.getStore('MenuDataViewStore');
                                     nemuStore.removeAll();
-                                    nemuStore.add({'image':'resources/images/hd_icon.png', 'label':'辅材入库','RES_ID':'SL-MOBILE-00'});
+                                    nemuStore.add({'image':'resources/images/hd_icon.png', 'label':'辅材入库','RES_ID':'SL-MOBILE-000'});
                                     nemuStore.add({'image':'resources/images/ck_icon.png', 'label':'辅材出库','RES_ID':'SL-MOBILE-01'});
                                     nemuStore.add({'image':'resources/images/rc_icon.png', 'label':'辅材转库','RES_ID':'SL-MOBILE-02'});
-                                    nemuStore.add({'image':'resources/images/hd_icon.png', 'label':'锌锭入库','RES_ID':'SL-MOBILE-05'});
+                                    nemuStore.add({'image':'resources/images/hd_icon.png', 'label':'锌锭入库','RES_ID':'SL-MOBILE-050'});
                                     nemuStore.add({'image':'resources/images/ck_icon.png', 'label':'锌锭出库','RES_ID':'SL-MOBILE-03'});
                                     nemuStore.add({'image':'resources/images/rc_icon.png', 'label':'锌锭转库','RES_ID':'SL-MOBILE-04'});
                                     //获取用户组织信息
